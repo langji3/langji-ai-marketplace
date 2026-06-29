@@ -1,37 +1,29 @@
 ---
 name: ai-requirement-intake
-description: Clarify AI development requirements before implementation. Use when a user request may be unclear, too broad, mixed across multiple requirements, missing success criteria, or needs the AI Dev Protocol one-requirement-per-branch rule enforced.
+description: Clarify AI development requirements before implementation. Use when a request is unclear, broad, mixed across multiple requirements, missing acceptance criteria, or needs the one-requirement-per-AI-work-unit rule enforced.
 ---
 
 # AI Requirement Intake
 
-Use this skill before spec writing when the requirement, scope, success criteria, or boundaries are not fully clear.
+Use before spec writing when the request is not clearly one actionable requirement.
 
-## Rules
+## Do
 
-- Confirm the user request maps to one independent requirement.
-- If the request combines unrelated work, ask the user to choose one requirement for the current AI branch.
-- Do not start implementation from a vague direction, broad goal, or mixed backlog item.
-- Keep the discussion in Chinese unless the user asks otherwise; keep code identifiers, API paths, table names, config keys, and commands in English.
+- Confirm the problem, expected result, scope, non-goals, affected areas, and verification.
+- Keep discussion in Chinese unless the user asks otherwise.
+- Keep code identifiers, API paths, table names, config keys, commands, and file paths in English.
+- Split bundled work; handle only one independent requirement per AI work unit.
 
-## Must Confirm
+## Stop
 
-- Problem to solve.
-- Expected successful result.
-- In-scope behavior.
-- Explicit non-goals.
-- Affected areas, especially API, database, config, permissions, async jobs, frontend interactions, or external systems.
-- Verification expectation.
+Ask before continuing when:
 
-## Stop And Ask When
+- The request is only a direction.
+- Multiple independent requirements are mixed.
+- Acceptance criteria or affected modules are unclear.
+- A business, compatibility, permission, or data-risk decision is missing.
 
-- The user only describes a direction.
-- Multiple independent requirements are bundled together.
-- The impact may span multiple modules but the boundary is not confirmed.
-- Acceptance criteria are unclear.
-- A business decision cannot be derived from the repository.
-
-## Output Before Next Phase
+## Output
 
 State in Chinese:
 
@@ -41,5 +33,4 @@ State in Chinese:
 - 初步影响区域
 - 计划验证方式
 
-Then route to `ai-branch-workflow` or `ai-spec-writing` as appropriate.
-
+Next: `ai-branch-workflow` or `ai-spec-writing`.

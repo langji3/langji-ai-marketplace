@@ -1,28 +1,36 @@
 ---
 name: ai-implementation-scope
-description: Control implementation scope for AI Dev Protocol work. Use while editing code to keep changes limited to the confirmed requirement and prevent unrelated refactors, formatting sweeps, dependency upgrades, build-tool changes, or workflow artifacts.
+description: Control implementation scope for AI Dev Protocol work. Use while editing code after the Chinese spec is confirmed to keep changes limited to the requirement and prevent unrelated refactors, formatting sweeps, dependency upgrades, build-tool changes, temporary artifacts, or workflow files.
 ---
 
 # AI Implementation Scope
 
-Use this skill during implementation after the Chinese spec has been confirmed.
+Use during code changes after the Chinese spec is confirmed.
 
-## Rules
+## Do
 
-- Only change files directly related to the confirmed requirement.
-- Do not include unrelated refactors, formatting sweeps, dependency upgrades, CI/build-tool changes, large renames, standalone plan files, `.superpowers/`, or temporary workflow artifacts unless the user explicitly asks.
-- Prefer the existing project patterns and helper APIs.
-- If a shared module, public type, or base config must be changed, explain why in the handoff.
+- Change only files directly related to the confirmed requirement.
+- Follow existing project patterns, helpers, conventions, and tests.
+- Run project-appropriate tests, build, static checks, or manual verification.
+- Record checks that cannot run and why.
 
-## Extra Issues Found During Work
+## Do Not
 
-When discovering an additional issue:
+- No unrelated refactor, formatting sweep, dependency upgrade, CI/build-tool change, large rename, standalone plan file, `.superpowers/`, or workflow artifact.
+- No temporary test code, debug script, mock data, or local-only artifact unless explicitly confirmed.
 
-1. Decide whether it blocks the current requirement.
-2. If it blocks, explain the reason and ask for confirmation before expanding scope.
-3. If it does not block, leave it for the handoff follow-up notes.
+## Scope Expansion
 
-## Before Delivery
+- If a discovered issue blocks the requirement, ask before expanding scope.
+- If it does not block, leave it for handoff follow-up notes.
 
-Run project-appropriate verification. If a check cannot run, capture the command, reason, and closest alternative check for `ai-handoff`.
+## Output
 
+Record:
+
+- 改了什么
+- 为什么属于本次范围
+- 验证了什么
+- 未覆盖或需开发者复核的点
+
+Next: `ai-commit-rules` if committing, then `ai-handoff`.

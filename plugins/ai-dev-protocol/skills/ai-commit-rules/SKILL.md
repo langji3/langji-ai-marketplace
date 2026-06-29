@@ -1,15 +1,15 @@
 ---
 name: ai-commit-rules
-description: Apply AI Dev Protocol commit rules. Use before preparing or reviewing commits on ai/... branches, direct requirement branches, or squash merge-back commits to ensure Chinese commit messages, correct feat:/fix: prefixes, and no unrelated changes.
+description: Apply AI Dev Protocol commit rules. Use before preparing, reviewing, squashing, or merging commits on ai/... branches or requirement branches to ensure Chinese commit messages, correct feat:/fix: prefixes, scoped changes, and no workflow artifacts.
 ---
 
 # AI Commit Rules
 
-Use this skill before committing, reviewing commits, or preparing a squash merge-back commit.
+Use before committing, reviewing commits, or preparing squash merge-back.
 
-## Message Format
+## Message
 
-Commit messages must be Chinese and use one of:
+Use Chinese:
 
 - `feat:` for requirements, features, or new capabilities.
 - `fix:` for modifications, bug fixes, or behavior corrections.
@@ -21,32 +21,14 @@ feat: 增加订单状态筛选
 fix: 修复订单状态筛选参数缺失
 ```
 
-## Personal Branch Mode
+## Rules
 
-When working on an `ai/...` branch:
+- Staged changes must belong only to the current requirement.
+- No unrelated refactor, formatting sweep, dependency change, temporary artifact, plan file, or workflow artifact.
+- Verification ran, or the blocker is recorded.
+- Personal branch mode: squash merge-back commit should be one Chinese `feat:` / `fix:` commit.
+- Requirement branch mode: commit directly on the requirement branch; no merge-back commit.
 
-- Intermediate commits may be created if useful, but they must stay scoped to the requirement.
-- The merge-back commit on the developer branch should be a single Chinese squash commit.
-- The squash commit message should summarize the requirement, not the internal AI process.
+## Output
 
-Example:
-
-```text
-feat: 增加订单状态筛选
-```
-
-## Requirement Branch Mode
-
-When working directly on an existing requirement branch:
-
-- Use the same Chinese `feat:` / `fix:` rule.
-- Do not create an extra merge-back commit.
-- Keep commits reviewable by the developer.
-
-## Pre-Commit Checklist
-
-- Branch mode is known: personal branch mode, requirement branch mode, or existing `ai/...` branch mode.
-- Changes belong only to the current requirement.
-- No unrelated refactor, formatting sweep, dependency change, or workflow artifact is included.
-- Verification has run, or the reason it cannot run is recorded.
-- Commit message is Chinese and uses the correct prefix.
+Provide or validate the final commit message.

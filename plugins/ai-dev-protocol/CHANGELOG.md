@@ -8,6 +8,15 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [0.2.3] - 2026-06-29
+
+### Changed
+
+- Simplified all workflow skills into concise phase rules.
+- Kept `ai-dev-protocol` as the router skill and phase details in child skills.
+- Aligned spec and Apifox templates with the current fields.
+- Bumped plugin version from `0.2.2` to `0.2.3`.
+
 ## [0.2.2] - 2026-06-29
 
 ### Changed

@@ -1,31 +1,32 @@
 ---
 name: ai-spec-writing
-description: Write and confirm Chinese requirement specs for AI Dev Protocol work. Use before implementation to document goal, scope, non-goals, affected areas, implementation approach, verification, and risks while preserving code identifiers and API paths in English.
+description: Write and confirm Chinese requirement specs for AI Dev Protocol work. Use before implementation after requirement and branch mode are clear to document goal, branch mode, scope, non-goals, affected areas, approach, verification, and risks.
 ---
 
 # AI Spec Writing
 
-Use this skill after requirement intake and before implementation.
+Use after requirement intake and branch-mode selection, before implementation.
 
-## Rules
+## Do
 
 - Write the spec in Chinese.
-- Keep code identifiers, API paths, table names, field names, config keys, commands, and file paths in English.
-- Include scope, non-goals, affected areas, implementation approach, verification, and risks.
+- Preserve English for code identifiers, API paths, table names, config keys, commands, and file paths.
+- Use `templates/requirement-spec.md` when structure helps.
 - Wait for user confirmation before implementation.
-- If the user changes the requirement, update the spec or reconfirm the changed scope.
 
-## Template
-
-Use `templates/requirement-spec.md` when a structured spec is useful. For small tasks, the spec may be shorter, but it must still include:
+## Include
 
 - 背景与目标
+- 分支模式
 - 本次范围
 - 非目标
 - 影响区域
+- 实现思路
 - 验证方式
+- 风险与注意事项
 
-## Handoff To Implementation
+## Stop
 
-Only route to `ai-implementation-scope` after the user confirms the spec.
+If the user changes scope, update the spec or reconfirm before editing.
 
+Next: `ai-implementation-scope`.

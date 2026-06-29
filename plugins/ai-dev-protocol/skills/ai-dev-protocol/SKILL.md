@@ -1,104 +1,51 @@
 ---
 name: ai-dev-protocol
-description: Route AI-assisted development work through the AI Dev Protocol workflow skills. Use when a development task may require requirement clarification, automatic branch-mode detection from the current branch name, Chinese requirement specs, implementation scope control, optional AI branch merge-back, Chinese commits, verified handoff, or Apifox API sync summaries.
+description: Route AI-assisted development tasks through AI Dev Protocol. Use for coding tasks that need requirement clarification, branch-mode selection, Chinese specs, scoped implementation, commits, merge-back, verified handoff, or Apifox API sync summaries.
 ---
 
 # AI Dev Protocol
 
-AI Dev Protocol 是团队 AI 辅助开发流程规约的总入口 skill。进入实现前，先根据当前分支命名风格选择分支模式：需求分支走需求分支模式，个人开发分支走个人分支模式。
+Entry skill. Use it to pick the next phase skill; keep detailed rules in phase skills.
 
-如果以 Codex plugin 形式安装，技能可能显示为 `ai-dev-protocol:<skill-name>`；下方名称指对应的 skill basename。
+## Flow
 
-## Core Model
+1. `ai-requirement-intake`: clarify one independent requirement.
+2. `ai-branch-workflow`: detect branch mode.
+3. `ai-spec-writing`: write and confirm Chinese spec.
+4. `ai-implementation-scope`: implement within confirmed scope.
+5. `ai-commit-rules`: prepare/review Chinese `feat:` / `fix:` commits.
+6. `ai-merge-back`: personal branch mode only, squash merge `ai/...` back.
+7. `ai-handoff`: final delivery.
+8. `ai-apifox-sync`: API changes only.
 
-Personal branch mode:
+## Branch Modes
 
-```text
-developer/<name>
-  -> ai/{yyyyMMdd}-{developer}-{short-desc}
-  -> ai/{yyyyMMdd}-{developer}-{another-desc}
-  <- squash merge back to developer/<name>
-```
+- Requirement branch: work directly on current branch; skip `ai/...` and merge-back.
+- Personal branch: create `ai/{yyyyMMdd}-{developer}-{short-desc}`; squash merge back after verification.
+- Existing `ai/...`: continue work; identify source developer branch.
+- Trunk/environment branch: stop unless user confirms exception.
+- Ambiguous branch: ask before editing.
 
-Requirement branch mode:
-
-```text
-feature/<requirement>
-  -> AI works directly on this requirement branch
-```
-
-Use requirement branch mode when the current branch already represents one explicit requirement, fix, task, or hotfix. Do not create an extra `ai/...` branch in this mode unless the user explicitly asks for one.
-
-## Branch Mode Auto Detection
-
-Use `ai-branch-workflow` to inspect the current branch before implementation.
-
-- If the current branch is a requirement branch, use requirement branch mode and work directly on it.
-- If the current branch is a personal developer branch, use personal branch mode and create one `ai/...` branch from it.
-- If the current branch is an existing `ai/...` branch, continue personal branch mode and identify the source developer branch before merge-back.
-- If the current branch is a trunk or environment branch, stop and ask the user to switch branches or confirm an exception.
-- If the branch style is ambiguous, ask the user whether it is a requirement branch or a personal developer branch.
-
-## Workflow Routing
-
-Use the phase skill that matches the current work:
-
-- `ai-requirement-intake`: clarify the requirement, enforce one requirement per AI work unit, and decide whether the task is ready for a spec.
-- `ai-branch-workflow`: inspect the current branch name and decide whether to use requirement branch mode, personal branch mode, or stop on a trunk/environment branch.
-- `ai-spec-writing`: write the Chinese requirement spec and wait for user confirmation before implementation.
-- `ai-implementation-scope`: keep code edits inside the confirmed requirement and prevent unrelated refactors, formatting, dependency changes, or workflow artifacts.
-- `ai-commit-rules`: prepare Chinese `feat:` / `fix:` commit messages for AI work and merge-back commits.
-- `ai-merge-back`: after verification, squash merge an AI branch back to the developer branch when personal branch mode is used.
-- `ai-handoff`: produce the final delivery summary with verification results, risks, review/联调 handoff notes, and follow-up notes.
-- `ai-apifox-sync`: produce the Apifox sync summary whenever API behavior or contracts changed.
-
-## Hard Gates
-
-Do not start implementation until all applicable gates are satisfied:
-
-1. Requirement scope is clear and maps to one independent requirement.
-2. The branch mode is known: requirement branch mode, personal branch mode, or existing `ai/...` branch mode.
-3. In personal branch mode, the developer branch is known and the AI branch is expected to be created from it.
-4. The Chinese requirement spec is written and confirmed.
-5. Planned edits are limited to the current requirement.
-6. Verification expectations are stated before delivery.
-
-If any gate is not satisfied, use the matching phase skill before proceeding.
-
-## Standard Flow
-
-1. Use `ai-requirement-intake` when the task enters.
-2. Use `ai-branch-workflow` to auto-detect branch mode from the current branch and create or validate the work branch.
-3. Use `ai-spec-writing` before implementation.
-4. Use `ai-implementation-scope` during code changes.
-5. Use project-appropriate verification before delivery.
-6. Use `ai-commit-rules` before commits.
-7. In personal branch mode, use `ai-merge-back` to squash merge the AI branch back to the developer branch after verification.
-8. Use `ai-handoff` for final delivery and make clear that the developer now leads review, 联调, and downstream merges.
-9. Use `ai-apifox-sync` in addition to handoff if API behavior or contracts changed.
-
-## Checklist
+## Gates
 
 Before implementation:
 
-- [ ] Requirement is one independent requirement.
-- [ ] Scope, non-goals, and affected areas are clear.
-- [ ] Current branch naming style has been checked.
-- [ ] Branch mode is chosen and explained.
-- [ ] Personal branch mode has a known developer branch and an `ai/...` branch.
-- [ ] Requirement branch mode has a confirmed requirement branch.
-- [ ] Chinese spec is written and confirmed.
+- One requirement only.
+- Scope, non-goals, affected areas, and verification are clear.
+- Branch mode is known.
+- Chinese spec is confirmed.
 
-During implementation:
+Before delivery:
 
-- [ ] Edits stay inside the approved requirement.
-- [ ] No unrelated refactor, formatting sweep, dependency upgrade, or generated workflow artifact is included.
-- [ ] Any discovered out-of-scope issue is reported instead of silently fixed.
+- Verification ran, or blocker is stated.
+- Commits use Chinese `feat:` / `fix:` when created.
+- Personal branch mode has merge-back status.
+- Developer takeover is stated.
+- API changes include Apifox sync summary.
 
-Before final delivery:
+## Global Rules
 
-- [ ] Verification commands or manual checks are run, or blockers are explained.
-- [ ] Personal branch mode either completed merge-back or explains why merge-back was not done.
-- [ ] Delivery states that the developer leads review, 联调, checks, and downstream merges.
-- [ ] API changes include Apifox sync summary.
-- [ ] Commit messages follow the Chinese `feat:` / `fix:` rule.
+- Specs, handoff, Apifox summaries, and AI commit messages use Chinese.
+- Code identifiers, API paths, table names, config keys, commands, and file paths stay English.
+- No unrelated refactor, formatting sweep, dependency upgrade, standalone plan file, `.superpowers/`, or workflow artifact unless explicitly requested.
+- Developer owns final review, self-test, integration testing, PR, merge, and code quality.

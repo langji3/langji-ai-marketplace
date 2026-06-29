@@ -30,6 +30,12 @@
 - Body：
 - Error response：
 
+## 权限或认证变化
+
+- Auth：
+- Permission：
+- Headers：
+
 ## 兼容性说明
 
 - 
@@ -40,4 +46,3 @@
 - 示例：
 - Mock：
 - 测试用例：
-

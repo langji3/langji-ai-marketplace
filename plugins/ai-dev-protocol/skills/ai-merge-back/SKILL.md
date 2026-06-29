@@ -1,57 +1,42 @@
 ---
 name: ai-merge-back
-description: Squash merge completed AI work back to the developer branch in AI Dev Protocol personal branch mode. Use after implementation and verification on an ai/... branch when the work should return to the developer's aggregation branch for human-led review, integration testing, and downstream merges. Do not use for requirement branch mode.
+description: Squash merge completed AI work back to the developer branch in AI Dev Protocol personal branch mode. Use after implementation and verification on an ai/... branch when work should return to the developer aggregation branch. Do not use for requirement branch mode.
 ---
 
 # AI Merge Back
 
-Use this skill only in personal branch mode, after AI implementation and verification are complete on an `ai/...` branch.
-
-## Purpose
-
-The `ai/...` branch is a temporary implementation branch. The developer branch is the aggregation branch where the developer leads review, 联调, checks, and downstream merges.
-
-Do not use merge-back when AI worked directly on a requirement branch such as `feature/...`, `fix/...`, `task/...`, or a ticket-named branch. In requirement branch mode, the developer continues review, self-test, integration testing, and PR from that same requirement branch.
+Use only in personal branch mode after verified work is complete on an `ai/...` branch.
 
 ## Preconditions
 
-Before merge-back:
+- Current branch is `ai/...`.
+- Source developer branch is known.
+- Implementation is complete.
+- Verification ran, or blocker is recorded.
+- Working tree is clean except intended committed changes.
+- User has not disabled merge-back.
 
-- Current branch is an `ai/...` branch.
-- The source developer branch is known.
-- The requirement has been implemented.
-- Verification has run, or the reason it cannot run is recorded.
-- Working tree is clean except for intended committed changes.
-- The user has not explicitly disabled merge-back.
+## Do
 
-If any precondition is not satisfied, stop and explain what is missing.
+1. Confirm AI branch and developer branch.
+2. Ensure no uncommitted changes.
+3. Switch to developer branch.
+4. Squash merge `ai/...`.
+5. Create one Chinese `feat:` / `fix:` commit.
+6. Run or recommend post-merge verification.
 
-## Process
+## Stop
 
-1. Confirm the current branch and the target developer branch.
-2. Confirm there are no uncommitted changes.
-3. Switch to the developer branch.
-4. Update the developer branch if the team workflow requires it and the user permits it.
-5. Squash merge the `ai/...` branch into the developer branch.
-6. Create one Chinese squash commit using `feat:` or `fix:`.
-7. Run or recommend post-merge verification.
-8. Hand off to the developer for review, 联调, checks, and downstream merges.
+Stop on unknown target branch, wrong current branch, dirty tree, conflicts, failed verification without accepted risk, or requirement branch mode.
 
-## Stop Conditions
+## Output
 
-Stop instead of forcing merge-back when:
+Record:
 
-- The target developer branch is unknown.
-- The current branch is not an `ai/...` branch.
-- The working tree is dirty.
-- Merge conflicts occur.
-- Verification failed and the user has not accepted the risk.
-- The user or team uses requirement branch mode.
+- AI 分支
+- 开发者分支
+- squash commit message
+- merge-back 状态
+- post-merge verification 状态
 
-## Handoff Note
-
-After merge-back, state:
-
-```text
-AI implementation has been squash merged back to the developer branch. The developer now leads review, 联调, final checks, and any merge to dev/site/prod or other environment branches.
-```
+State that the developer now leads review, 联调, checks, and downstream merges.

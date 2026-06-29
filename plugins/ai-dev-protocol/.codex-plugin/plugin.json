@@ -1,6 +1,6 @@
 {
   "name": "ai-dev-protocol",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Team workflow protocol for AI-assisted software development: requirement intake, branch-mode detection, specs, scope control, merge-back, commits, handoff, and API sync.",
   "author": {
     "name": "AI Dev Protocol Team"
@@ -17,7 +17,7 @@
   "interface": {
     "displayName": "AI Dev Protocol",
     "shortDescription": "Team workflow skills for AI-assisted development",
-    "longDescription": "Use AI Dev Protocol to guide coding agents through requirement intake, branch-mode detection from the current branch name, Chinese specs, implementation scope control, optional squash merge-back to the developer branch, Chinese commit messages, delivery handoff, and Apifox sync summaries.",
+    "longDescription": "Use AI Dev Protocol to guide coding agents through phased workflow skills for requirement intake, branch-mode detection, Chinese specs, scope control, merge-back, commits, handoff, and Apifox sync summaries.",
     "developerName": "AI Dev Protocol Team",
     "category": "Coding",
     "capabilities": [
