@@ -1,0 +1,23 @@
+{
+  "marketplace": {
+    "name": "langji-ai-marketplace",
+    "displayName": "Langji AI Marketplace",
+    "description": "Team plugin marketplace for AI-assisted development tools."
+  },
+  "plugins": [
+    {
+      "name": "ai-dev-protocol",
+      "displayName": "AI Dev Protocol",
+      "description": "Team workflow protocol for AI-assisted software development.",
+      "sourceRepository": "https://github.com/langji3/ai-dev-protocol",
+      "version": "0.2.1",
+      "category": "Coding",
+      "tools": [
+        "codex",
+        "claude-code",
+        "cursor"
+      ]
+    }
+  ]
+}
+
