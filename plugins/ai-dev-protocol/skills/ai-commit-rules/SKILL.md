@@ -21,7 +21,7 @@ feat: 增加订单状态筛选
 fix: 修复订单状态筛选参数缺失
 ```
 
-## Default Mode
+## Personal Branch Mode
 
 When working on an `ai/...` branch:
 
@@ -35,7 +35,7 @@ Example:
 feat: 增加订单状态筛选
 ```
 
-## Compatibility Mode
+## Requirement Branch Mode
 
 When working directly on an existing requirement branch:
 
@@ -45,9 +45,8 @@ When working directly on an existing requirement branch:
 
 ## Pre-Commit Checklist
 
-- Branch mode is known: default AI branch mode or direct requirement branch mode.
+- Branch mode is known: personal branch mode, requirement branch mode, or existing `ai/...` branch mode.
 - Changes belong only to the current requirement.
 - No unrelated refactor, formatting sweep, dependency change, or workflow artifact is included.
 - Verification has run, or the reason it cannot run is recorded.
 - Commit message is Chinese and uses the correct prefix.
-

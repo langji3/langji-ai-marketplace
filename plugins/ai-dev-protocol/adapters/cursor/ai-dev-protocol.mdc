@@ -11,22 +11,25 @@ alwaysApply: false
 
 本协议在 Codex 中拆分为多个 workflow skills；Cursor 使用本 rule 读取同一套核心规则。
 
-默认模式：开发者个人分支是多个 AI 需求的汇总站。每个明确需求从开发者个人分支创建一个 `ai/...` 分支，AI 完成实现和验证后 squash merge 回开发者个人分支，之后由开发者主导 review、联调、检查和后续合并。
+分支模式自动判断：AI 在实现前先查看当前分支命名风格。
 
-兼容模式：如果当前分支已经是明确需求分支，并且用户或团队不希望创建额外 `ai/...` 分支，AI 可以直接在该需求分支工作，并跳过 merge-back。
+- 需求分支模式：如果当前分支已经是明确需求分支，例如 `feature/...`、`fix/...`、`hotfix/...`、`task/...` 或 ticket 命名分支，AI 直接在当前分支工作，并跳过 merge-back。
+- 个人分支模式：如果当前分支是开发者个人分支，例如 `developer/<name>`、`dev/<name>`、`<name>/dev`，每个明确需求从该分支创建一个 `ai/...` 分支，AI 完成实现和验证后 squash merge 回开发者个人分支。
+- 分支含义不明确时，AI 必须先询问当前分支是个人分支还是需求分支。
 
 核心规则：
 
 - 一个 AI 工作单元只处理一个明确 requirement。
 - 动手前先确认需求范围；范围不清时必须提问。
 - 实现前写中文 spec，包含目标、范围、非目标、影响区域和验证方式。
-- 默认从开发者个人分支创建 `ai/{yyyyMMdd}-{developer}-{short-desc}` 分支。
-- 当前分支已是明确需求分支时，可直接工作并跳过额外 AI 分支。
+- 实现前先根据当前分支命名风格选择分支模式。
+- 当前分支已是明确需求分支时，直接在当前分支工作并跳过额外 AI 分支。
+- 当前分支是个人开发分支时，从该分支创建 `ai/{yyyyMMdd}-{developer}-{short-desc}` 分支。
 - 不直接在 `main`、`master`、`dev`、`develop`、`site`、`staging`、`test`、`prod`、`production` 等主干或环境分支上实现。
 - spec、交付摘要、Apifox 摘要使用中文；代码标识符、API 路径、表名、配置键保持英文。
 - 不混入无关重构、格式化、依赖升级或 workflow 产物。
 - commit message 使用中文，需求用 `feat:`，修改用 `fix:`。
-- 默认模式下，AI 验证后 squash merge 回开发者个人分支。
+- 个人分支模式下，AI 验证后 squash merge 回开发者个人分支；需求分支模式跳过 merge-back。
 - 最终交付包含验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary。
 
 阶段对应关系：
@@ -41,4 +44,3 @@ alwaysApply: false
 - API 同步：`ai-apifox-sync`
 
 完整规则以仓库 `skills/` 下各 `SKILL.md` 为准。
-

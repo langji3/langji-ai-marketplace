@@ -8,6 +8,16 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [0.2.2] - 2026-06-29
+
+### Changed
+
+- Updated branch workflow rules to auto-detect branch mode from the current branch name.
+- Promoted direct work on requirement branches to a first-class requirement branch mode instead of treating it as only a compatibility path.
+- Clarified that personal developer branches create `ai/...` branches and use merge-back, while requirement branches skip extra AI branches and merge-back.
+- Updated Codex, Claude Code, Cursor, and generic adapters to describe branch-mode auto detection.
+- Bumped plugin version from `0.2.1` to `0.2.2`.
+
 ## [0.2.1] - 2026-06-29
 
 ### Added

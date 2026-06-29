@@ -15,7 +15,7 @@ Langji AI Marketplace 是团队内部 AI 工具插件市场，用于统一分发
 
 | Plugin | Version | Category | Supported Tools | Source Repository |
 | --- | --- | --- | --- | --- |
-| AI Dev Protocol | 0.2.1 | Coding | Codex, Claude Code, Cursor | `https://github.com/langji3/ai-dev-protocol` |
+| AI Dev Protocol | 0.2.2 | Coding | Codex, Claude Code, Cursor | `https://github.com/langji3/ai-dev-protocol` |
 
 The snapshot currently distributed by this marketplace lives in `plugins/ai-dev-protocol/`.
 
@@ -84,11 +84,12 @@ langji-ai-marketplace/
 ## Maintenance Flow
 
 1. Update the source plugin in its own repository.
-2. Validate the plugin behavior there.
-3. Run `scripts/sync-ai-dev-protocol.ps1` in this marketplace repository.
-4. Review the updated snapshot under `plugins/ai-dev-protocol/`.
-5. Update the marketplace catalog if plugin metadata changed.
-6. Publish or share the marketplace repository revision with the team.
+2. Bump the plugin version when the distributed plugin behavior changes.
+3. Validate the plugin behavior in the source repository.
+4. Run `scripts/sync-ai-dev-protocol.ps1` in this marketplace repository.
+5. Review the updated snapshot under `plugins/ai-dev-protocol/`.
+6. Update the marketplace catalog if plugin metadata changed.
+7. Publish or share the marketplace repository revision with the team.
 
 The detailed snapshot policy is documented in `docs/update-policy.md`.
 
@@ -103,6 +104,47 @@ For local development or offline verification, you can override the source path:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\sync-ai-dev-protocol.ps1 -SourcePath ..\ai-dev-protocol
 ```
+
+## Update Behavior By Tool
+
+When this marketplace repository is updated, Codex and Claude Code do not consume the change in exactly the same way.
+
+### Codex
+
+- Codex reads the marketplace entry from `.agents/plugins/marketplace.json`.
+- The marketplace entry points directly to `./plugins/ai-dev-protocol`.
+- After the marketplace repository is refreshed, Codex will read the updated snapshot from this repository.
+- In practice, team members should refresh the marketplace or reinstall/reload the plugin if they do not immediately see the latest snapshot.
+
+### Claude Code
+
+- Claude Code reads the marketplace entry from `.claude-plugin/marketplace.json`.
+- Users add the marketplace, then install `ai-dev-protocol` from that marketplace into their local Claude Code plugin cache.
+- Updating the marketplace repository alone does not guarantee that already-installed Claude Code plugins refresh automatically.
+- Claude Code users should refresh the marketplace, update the plugin, and reload plugins in their current session.
+
+Recommended Claude Code update flow:
+
+```shell
+/plugin marketplace update langji-ai-marketplace
+/plugin update ai-dev-protocol@langji-ai-marketplace
+/reload-plugins
+```
+
+Important: Claude Code update detection is version-sensitive. If the plugin content changes but `plugins/ai-dev-protocol/.claude-plugin/plugin.json` keeps the same `version`, users may not receive the new release as expected.
+
+## Recommended Release Flow
+
+Use this flow whenever you publish a new validated version of `ai-dev-protocol` through the marketplace:
+
+1. Update `ai-dev-protocol` in its source repository.
+2. Bump the plugin version in the source repository when distributed behavior changes.
+3. Validate the plugin there.
+4. Run `scripts/sync-ai-dev-protocol.ps1` in this repository.
+5. Review the synced marketplace snapshot.
+6. Commit and push the marketplace repository update.
+7. Ask Claude Code users to run marketplace update, plugin update, and `/reload-plugins`.
+8. Ask Codex users to refresh or reinstall the marketplace plugin if needed.
 
 ## Relationship To Source Repositories
 

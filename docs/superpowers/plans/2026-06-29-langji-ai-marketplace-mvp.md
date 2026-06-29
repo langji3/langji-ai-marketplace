@@ -105,7 +105,7 @@ Expected: `.codex-plugin`, `.claude-plugin`, `skills`, `adapters`, `docs`, `READ
 - [ ] **Step 2: Inspect plugin manifest**
 
 Run: `Get-Content .\plugins\ai-dev-protocol\.codex-plugin\plugin.json`
-Expected: plugin name `ai-dev-protocol` and version `0.2.1`
+Expected: plugin name `ai-dev-protocol` and version `0.2.2`
 
 - [ ] **Step 3: Inspect marketplace entry**
 

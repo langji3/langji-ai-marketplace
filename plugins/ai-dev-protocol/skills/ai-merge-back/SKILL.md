@@ -1,15 +1,17 @@
 ---
 name: ai-merge-back
-description: Squash merge completed AI work back to the developer branch in AI Dev Protocol default mode. Use after implementation and verification on an ai/... branch when the work should return to the developer's aggregation branch for human-led review, integration testing, and downstream merges.
+description: Squash merge completed AI work back to the developer branch in AI Dev Protocol personal branch mode. Use after implementation and verification on an ai/... branch when the work should return to the developer's aggregation branch for human-led review, integration testing, and downstream merges. Do not use for requirement branch mode.
 ---
 
 # AI Merge Back
 
-Use this skill only in default mode, after AI implementation and verification are complete on an `ai/...` branch.
+Use this skill only in personal branch mode, after AI implementation and verification are complete on an `ai/...` branch.
 
 ## Purpose
 
 The `ai/...` branch is a temporary implementation branch. The developer branch is the aggregation branch where the developer leads review, 联调, checks, and downstream merges.
+
+Do not use merge-back when AI worked directly on a requirement branch such as `feature/...`, `fix/...`, `task/...`, or a ticket-named branch. In requirement branch mode, the developer continues review, self-test, integration testing, and PR from that same requirement branch.
 
 ## Preconditions
 
@@ -44,7 +46,7 @@ Stop instead of forcing merge-back when:
 - The working tree is dirty.
 - Merge conflicts occur.
 - Verification failed and the user has not accepted the risk.
-- The user or team uses direct requirement branch compatibility mode.
+- The user or team uses requirement branch mode.
 
 ## Handoff Note
 
@@ -53,4 +55,3 @@ After merge-back, state:
 ```text
 AI implementation has been squash merged back to the developer branch. The developer now leads review, 联调, final checks, and any merge to dev/site/prod or other environment branches.
 ```
-
