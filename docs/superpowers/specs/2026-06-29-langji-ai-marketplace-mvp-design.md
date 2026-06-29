@@ -8,6 +8,7 @@ Create a lightweight marketplace repository that distributes validated AI plugin
 
 - Create marketplace-level documentation and installation guides.
 - Add a Codex marketplace entrypoint at `.agents/plugins/marketplace.json`.
+- Add a Claude Code marketplace entrypoint at `.claude-plugin/marketplace.json`.
 - Add a tool-agnostic catalog at `catalog/plugins.json`.
 - Add a local sync script for `ai-dev-protocol`.
 - Store the validated `ai-dev-protocol` distribution snapshot under `plugins/ai-dev-protocol/`.
@@ -31,7 +32,7 @@ Create a lightweight marketplace repository that distributes validated AI plugin
 
 ### Marketplace Index Layer
 
-`catalog/plugins.json` provides a tool-neutral plugin listing for future consumers, while `.agents/plugins/marketplace.json` is the Codex-specific marketplace entrypoint.
+`catalog/plugins.json` provides a tool-neutral plugin listing for future consumers, while `.agents/plugins/marketplace.json` is the Codex-specific marketplace entrypoint and `.claude-plugin/marketplace.json` is the Claude Code marketplace entrypoint.
 
 ### Snapshot Layer
 
@@ -44,6 +45,7 @@ Create a lightweight marketplace repository that distributes validated AI plugin
 ## Validation
 
 - Confirm the marketplace index exposes `ai-dev-protocol`.
+- Confirm the Claude Code marketplace manifest exposes `ai-dev-protocol`.
 - Confirm the snapshot contains `.codex-plugin/plugin.json`.
 - Confirm the snapshot contains `skills/`.
 - Confirm the marketplace docs explain how each tool consumes the snapshot.

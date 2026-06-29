@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a distribution-only marketplace repository that exposes `ai-dev-protocol` as an installable Codex marketplace plugin and keeps a validated local snapshot for Codex, Claude Code, and Cursor.
+**Goal:** Build a distribution-only marketplace repository that exposes `ai-dev-protocol` as an installable Codex and Claude Code marketplace plugin and keeps a validated local snapshot for Codex, Claude Code, and Cursor.
 
 **Architecture:** The repository has three layers: marketplace indexes, human-facing documentation, and a sync script that copies the validated plugin snapshot from `https://github.com/langji3/ai-dev-protocol.git` into `plugins/ai-dev-protocol`. The marketplace never authors plugin rules; it only republishes validated plugin assets. For local verification, the script can also read from an explicit local source path.
 
@@ -15,6 +15,7 @@
 - Snapshot content must include `.codex-plugin/`, `.claude-plugin/`, `skills/`, `adapters/`, `docs/`, `README.md`, and `CHANGELOG.md`.
 - `catalog/plugins.json` must stay tool-agnostic.
 - `.agents/plugins/marketplace.json` must remain the Codex marketplace entrypoint.
+- `.claude-plugin/marketplace.json` must remain the Claude Code marketplace entrypoint.
 
 ---
 
@@ -25,6 +26,7 @@
 - Create: `.gitignore`
 - Create: `catalog/plugins.json`
 - Create: `.agents/plugins/marketplace.json`
+- Create: `.claude-plugin/marketplace.json`
 - Create: `docs/install-codex.md`
 - Create: `docs/install-claude-code.md`
 - Create: `docs/install-cursor.md`
@@ -45,12 +47,12 @@ Get-Content 'D:\project\ai-dev-protocol\.claude-plugin\plugin.json'
 - [ ] **Step 2: Create marketplace documentation and indexes**
 
 ```text
-Write README.md, install docs, update policy, add-plugin guide, catalog/plugins.json, and .agents/plugins/marketplace.json
+Write README.md, install docs, update policy, add-plugin guide, catalog/plugins.json, .agents/plugins/marketplace.json, and .claude-plugin/marketplace.json
 ```
 
 - [ ] **Step 3: Verify metadata files exist**
 
-Run: `Get-ChildItem README.md, .gitignore, catalog/plugins.json, .agents/plugins/marketplace.json, docs`
+Run: `Get-ChildItem README.md, .gitignore, catalog/plugins.json, .agents/plugins/marketplace.json, .claude-plugin/marketplace.json, docs`
 Expected: all files exist
 
 ### Task 2: Implement Local Snapshot Sync Script

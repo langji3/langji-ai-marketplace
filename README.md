@@ -33,7 +33,13 @@ Detailed guide: `docs/install-codex.md`
 
 ### Claude Code
 
-Claude Code currently reads the plugin snapshot from `plugins/ai-dev-protocol/`, especially `.claude-plugin/plugin.json` and `adapters/claude-code/`.
+Claude Code can add this repository as a plugin marketplace because the repository root now includes `.claude-plugin/marketplace.json`.
+
+Recommended flow:
+
+1. Run `/plugin marketplace add langji3/langji-ai-marketplace`
+2. Run `/plugin install ai-dev-protocol@langji-ai-marketplace`
+3. Run `/reload-plugins`
 
 Detailed guide: `docs/install-claude-code.md`
 
@@ -54,6 +60,8 @@ langji-ai-marketplace/
   .agents/
     plugins/
       marketplace.json
+  .claude-plugin/
+    marketplace.json
   plugins/
     ai-dev-protocol/
       .codex-plugin/
@@ -110,6 +118,7 @@ This repository is intentionally multi-plugin friendly:
 - Add a new plugin under `plugins/<plugin-name>/`
 - Register it in `catalog/plugins.json`
 - Add it to `.agents/plugins/marketplace.json`
+- Add it to `.claude-plugin/marketplace.json`
 - Document installation and update rules as needed
 
 See `docs/add-plugin-guide.md` for the checklist.
