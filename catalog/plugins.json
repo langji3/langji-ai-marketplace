@@ -10,7 +10,7 @@
       "displayName": "AI Dev Protocol",
       "description": "Team workflow protocol for AI-assisted software development.",
       "sourceRepository": "https://github.com/langji3/ai-dev-protocol",
-      "version": "0.2.6",
+      "version": "0.2.9",
       "category": "Coding",
       "tools": [
         "codex",

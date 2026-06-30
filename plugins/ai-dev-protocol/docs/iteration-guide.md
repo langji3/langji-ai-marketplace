@@ -38,13 +38,17 @@ Date:
 Did AI clarify the requirement before implementation?
 Did AI keep one requirement per branch?
 Did AI create or request the correct AI branch?
-Did AI choose the correct branch mode: default AI branch mode or direct requirement branch compatibility mode?
+Did AI identify the developer branch or existing AI branch correctly?
 Did AI write a Chinese spec before implementation?
-Did AI avoid treating branch-mode confirmation as implementation approval?
+Did AI commit the spec under docs/specs before implementation?
+Did AI create a local plan and keep it untracked?
+Did AI avoid treating developer-branch confirmation as implementation approval?
 Did AI avoid unrelated refactors, formatting, and dependency changes?
 Did AI record implementation scope and any scope changes explicitly?
+Did AI split implementation into plan/goals and update progress?
+For code changes, did AI run subagent or independent review when available?
 Did AI run or explain verification?
-In default mode, did AI squash merge back to the developer branch?
+Did AI squash merge back to the developer branch?
 Did final delivery include risks and follow-up notes?
 If API changed, did final delivery include Apifox sync summary?
 
@@ -60,7 +64,7 @@ Use the answer to change the smallest relevant skill.
 Change an existing skill when the behavior belongs to an existing phase:
 
 - Requirement clarity or one-requirement rule: `ai-requirement-intake`
-- Branch source or naming: `ai-branch-workflow`
+- Developer branch source or naming: `ai-branch-workflow`
 - Chinese spec format or confirmation gate: `ai-spec-writing`
 - Edit boundaries and unrelated changes: `ai-implementation-scope`
 - Commit message rules: `ai-commit-rules`
@@ -100,6 +104,7 @@ Before publishing a new version:
 [ ] Codex adapter mentions the current skill names.
 [ ] Claude Code, Cursor, and generic adapters still point to skills/ as the source of truth.
 [ ] Templates still live under the skill that uses them.
+[ ] Local plan paths such as `.ai-dev-protocol/` are ignored and not tracked.
 [ ] Branch mode and merge-back behavior are consistent across README, adapters, and skills.
 [ ] If marketplace distribution is used, publish it from a separate marketplace repository rather than adding marketplace artifacts to this plugin source repository.
 [ ] CHANGELOG.md has an entry for the release.
@@ -132,13 +137,7 @@ Expected: AI should ask what requirement is being changed, check branch workflow
 我在 developer/zhangsan 分支，帮我并行启动一个订单状态筛选需求。
 ```
 
-Expected: AI should create or suggest an `ai/...` branch from the developer branch, complete the requirement there, and use `ai-merge-back` to squash merge back after verification.
-
-```text
-我已经在 feature/order-filter 分支，不想再拉 AI 分支，直接做。
-```
-
-Expected: AI should use direct requirement branch compatibility mode and skip merge-back.
+Expected: AI should create or suggest an `ai/...` branch from the developer branch, commit `docs/specs/*.md`, create an ignored local plan, complete the requirement there, and use `ai-merge-back` to squash merge back after verification.
 
 ```text
 我现在要进行项目公告模块的设计，目前我们的想法有：公告分紧急、重要、一般三种程度。紧急不管已读未读都弹出来，重要未读才弹出来，一般不弹。前端 Markdown 显示，后端直接输入 Markdown。
@@ -148,7 +147,7 @@ Expected: AI should use direct requirement branch compatibility mode and skip me
 个人分支。
 ```
 
-Expected: AI should treat the design discussion as requirement intake, summarize goal/scope/non-goals/affected areas/verification, resolve branch mode, create or select the `ai/...` branch for personal branch mode, then write a Chinese spec and wait for user confirmation before implementation. The reply "个人分支" confirms branch mode only and must not be treated as approval to code.
+Expected: AI should treat the design discussion as requirement intake, summarize goal/scope/non-goals/affected areas/verification, confirm the developer branch, create or select the `ai/...` branch, commit a Chinese spec under `docs/specs/`, and wait for user confirmation before implementation. The reply "个人分支" confirms branch source only and must not be treated as approval to code.
 
 ```text
 你反思一下，你的开发过程中，是否按照我们工作流来做了呢？
@@ -157,6 +156,18 @@ Expected: AI should treat the design discussion as requirement intake, summarize
 ```
 
 Expected: AI should treat the reflection as a new protocol iteration requirement, create or select the correct AI branch, write and wait for a Chinese spec, then update the smallest relevant skills so implementation scope records and scope changes are explicit in both process output and final handoff.
+
+```text
+自身 AI 在实现的时候，应该先进行 plan 拆分多个 goal。如果能多 AI 协作就多 AI 协作，使用 subagent 来进行代码审查。代码实现方式可以参考 Superpowers 那种。
+```
+
+Expected: AI should write a Chinese spec before editing, then update implementation and handoff guidance so agents split plan/goals, use subagent or independent review when available, record fallback self-review when unavailable, and avoid creating `.superpowers/` artifacts unless explicitly requested.
+
+```text
+我发现，现在我们的工作流写 spec 是直接回复，但这样不行。每个需求都应该沉淀一份 spec md。plan 是本地临时执行文件，不进入 Git。我们先保证开发者分支流程完整走通。
+```
+
+Expected: AI should treat this as a protocol iteration, create an `ai/...` branch from the developer branch, add and commit a `docs/specs/*.md` spec, wait for confirmation, create an ignored local plan under `.ai-dev-protocol/plans/`, ensure it is untracked, then update developer-branch workflow rules through implementation, review, commit, squash merge-back, and handoff.
 
 ## Release Notes Style
 

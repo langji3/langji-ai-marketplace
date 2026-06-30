@@ -41,7 +41,7 @@ ai-apifox-sync
 如果项目已有 `AGENTS.md`，保留原有项目规则，并追加 AI Dev Protocol 段落。若规则冲突：
 
 - 项目业务、架构、代码风格规则优先。
-- 需求澄清、分支模式、spec、范围控制、提交、merge-back 和交付流程遵守 AI Dev Protocol。
+- 需求澄清、开发者分支工作流、spec、范围控制、提交、merge-back 和交付流程遵守 AI Dev Protocol。
 
 ## 备用方式：直接安装多个 Skills
 
@@ -54,8 +54,10 @@ ai-apifox-sync
 在目标项目中发起一个代码修改任务，确认 Codex 会：
 
 - 使用 `ai-requirement-intake` 先确认需求范围。
-- 使用 `ai-branch-workflow` 根据当前分支命名风格判断需求分支模式、个人分支模式或主干/环境分支阻断。
-- 使用 `ai-spec-writing` 写中文 spec。
-- 使用 `ai-merge-back` 在个人分支模式下 squash merge 回开发者个人分支；需求分支模式跳过。
-- 使用 `ai-handoff` 在交付时包含验证结果、merge-back 状态和开发者接管说明。
+- 使用 `ai-branch-workflow` 确认开发者分支、已有 AI 分支或主干/环境分支阻断。
+- 使用 `ai-spec-writing` 写中文 spec，并创建提交 `docs/specs/*.md`。
+- 创建 `.ai-dev-protocol/plans/*.md` 本地 plan，并确认它被忽略且未被 Git 追踪。
+- 在 AI 分支提交实现改动，并在交付中说明实现提交状态。
+- 使用 `ai-merge-back` squash merge 回开发者分支。
+- 使用 `ai-handoff` 在交付时包含 spec 文档状态、本地 plan 状态、实现提交状态、验证结果、merge-back 状态和开发者接管说明。
 - API 变更时使用 `ai-apifox-sync` 输出 Apifox sync summary。

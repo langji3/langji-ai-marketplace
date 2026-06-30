@@ -1,6 +1,6 @@
 ---
 name: ai-commit-rules
-description: Apply AI Dev Protocol commit rules. Use before preparing, reviewing, squashing, or merging commits on ai/... branches or requirement branches to ensure Chinese commit messages, correct feat:/fix: prefixes, scoped changes, and no workflow artifacts.
+description: Apply AI Dev Protocol commit rules. Use before preparing, reviewing, squashing, or merging commits on ai/... branches to ensure Chinese commit messages, correct feat:/fix: prefixes, scoped changes, and no workflow artifacts.
 ---
 
 # AI Commit Rules
@@ -26,8 +26,7 @@ fix: 修复订单状态筛选参数缺失
 - Staged changes must belong only to the current requirement.
 - No unrelated refactor, formatting sweep, dependency change, temporary artifact, plan file, or workflow artifact.
 - Verification ran, or the blocker is recorded.
-- Personal branch mode: squash merge-back commit should be one Chinese `feat:` / `fix:` commit.
-- Requirement branch mode: commit directly on the requirement branch; no merge-back commit.
+- Squash merge-back commit should be one Chinese `feat:` / `fix:` commit.
 
 ## Output
 

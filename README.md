@@ -15,7 +15,7 @@ Langji AI Marketplace 是团队内部 AI 工具插件市场，用于统一分发
 
 | Plugin | Version | Category | Supported Tools | Source Repository |
 | --- | --- | --- | --- | --- |
-| AI Dev Protocol | 0.2.6 | Coding | Codex, Claude Code, Cursor | `https://github.com/langji3/ai-dev-protocol` |
+| AI Dev Protocol | 0.2.9 | Coding | Codex, Claude Code, Cursor | `https://github.com/langji3/ai-dev-protocol` |
 
 The snapshot currently distributed by this marketplace lives in `plugins/ai-dev-protocol/`.
 

@@ -8,6 +8,33 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [0.2.9] - 2026-06-30
+
+### Changed
+
+- Removed the current requirement-branch workflow from active rules.
+- Made the small-team developer branch workflow the single supported development flow.
+- Updated skills, adapters, and install checks to require `ai/...` branches and merge-back.
+- Kept old requirement-branch mentions only in historical changelog/spec context.
+
+## [0.2.8] - 2026-06-30
+
+### Fixed
+
+- Required personal branch mode to commit requirement specs under `docs/specs/` before implementation.
+- Defined ignored local plan files under `.ai-dev-protocol/plans/` for personal branch mode execution.
+- Updated implementation, merge-back, and handoff guidance to record spec status, local plan status, and merge-back state.
+- Added a local plan template and ignored `.ai-dev-protocol/` local workflow state.
+
+## [0.2.7] - 2026-06-30
+
+### Fixed
+
+- Added implementation-stage plan/goals tracking guidance.
+- Required subagent or independent review for code changes when available, with fallback self-review recorded when unavailable.
+- Updated handoff guidance and template to include plan/goals completion and review status.
+- Documented the Superpowers-style working method without creating `.superpowers/` artifacts.
+
 ## [0.2.6] - 2026-06-30
 
 ### Fixed

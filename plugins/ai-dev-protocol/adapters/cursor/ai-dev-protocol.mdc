@@ -11,28 +11,31 @@ alwaysApply: false
 
 本协议在 Codex 中拆分为多个 workflow skills；Cursor 使用本 rule 读取同一套核心规则。
 
-分支模式自动判断：AI 在实现前先查看当前分支命名风格。
+开发者分支工作流：AI 在实现前先确认当前开发者分支或已有 `ai/...` 分支。
 
-- 需求分支模式：如果当前分支已经是明确需求分支，例如 `feature/...`、`fix/...`、`hotfix/...`、`task/...` 或 ticket 命名分支，AI 直接在当前分支工作，并跳过 merge-back。
-- 个人分支模式：如果当前分支是开发者个人分支，例如 `developer/<name>`、`dev/<name>`、`<name>/dev`，每个明确需求从该分支创建一个 `ai/...` 分支，AI 完成实现和验证后 squash merge 回开发者个人分支。
-- 分支含义不明确时，AI 必须先询问当前分支是个人分支还是需求分支。
+- 开发者分支：如果当前分支是开发者汇总分支，例如 `developer/<name>`、`dev/<name>`、`<name>/dev`，或用户明确指定的团队开发者汇总分支，每个明确需求从该分支创建一个 `ai/...` 分支。
+- AI 分支：AI 先提交 `docs/specs/*.md`，再创建未追踪的本地 plan，完成实现和验证后 squash merge 回开发者分支。
+- 分支含义不明确时，AI 必须先询问当前分支是否作为开发者分支使用。
 
 核心规则：
 
 - 一个 AI 工作单元只处理一个明确 requirement。
 - 动手前先确认需求范围；范围不清时必须提问。
 - 实现前写中文 spec，包含目标、范围、非目标、影响区域和验证方式。
-- 实现前先根据当前分支命名风格选择分支模式。
+- spec 必须写入并提交到 `docs/specs/*.md`。
+- spec 确认后先创建未追踪的本地 plan，再拆分 plan/goals 并随着推进更新状态；极小改动可使用轻量 plan。
+- 复杂任务或代码变更优先使用 subagent / 多 AI 做独立审查；不可用时记录替代自检。
+- 实现前确认开发者分支或已有 AI 分支。
 - 模块设计或需求讨论如果可能进入代码实现，也必须先走需求澄清。
-- 用户确认“个人分支”或“需求分支”只表示分支模式已确认，不表示允许实现。
-- 当前分支已是明确需求分支时，直接在当前分支工作并跳过额外 AI 分支。
-- 当前分支是个人开发分支时，从该分支创建 `ai/{yyyyMMdd}-{developer}-{short-desc}` 分支。
+- 用户确认开发者分支只表示分支来源已确认，不表示允许实现。
+- 从开发者分支创建 `ai/{yyyyMMdd}-{developer}-{short-desc}` 分支。
 - 不直接在 `main`、`master`、`dev`、`develop`、`site`、`staging`、`test`、`prod`、`production` 等主干或环境分支上实现。
 - spec、交付摘要、Apifox 摘要使用中文；代码标识符、API 路径、表名、配置键保持英文。
 - 不混入无关重构、格式化、依赖升级或 workflow 产物。
+- 可以借鉴 Superpowers 式逐 goal 推进的方法，但 plan 是本地临时执行文件，不得进入 Git 追踪；不得创建 `.superpowers/` 产物，除非用户明确要求。
 - commit message 使用中文，需求用 `feat:`，修改用 `fix:`。
-- 个人分支模式下，AI 验证后 squash merge 回开发者个人分支；需求分支模式跳过 merge-back。
-- 最终交付包含实现范围记录、范围变化说明、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary。
+- AI 验证后 squash merge 回开发者分支。
+- 最终交付包含 spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary。
 
 阶段对应关系：
 
