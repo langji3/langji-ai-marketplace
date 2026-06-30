@@ -1,11 +1,12 @@
 ---
 name: ai-requirement-intake
-description: Clarify AI development requirements before implementation. Use when a request is unclear, broad, mixed across multiple requirements, missing acceptance criteria, or needs the one-requirement-per-AI-work-unit rule enforced.
+description: Clarify AI development requirements before implementation. Use when a request is unclear, broad, mixed across multiple requirements, starts as module/design discussion, mentions next implementation steps, misses acceptance criteria, or needs the one-requirement-per-AI-work-unit rule enforced.
 ---
 
 # AI Requirement Intake
 
 Use before spec writing when the request is not clearly one actionable requirement.
+Also use it when a natural design discussion is likely to become code work, even if the user has not said "implement" yet.
 
 ## Do
 
@@ -13,6 +14,8 @@ Use before spec writing when the request is not clearly one actionable requireme
 - Keep discussion in Chinese unless the user asks otherwise.
 - Keep code identifiers, API paths, table names, config keys, commands, and file paths in English.
 - Split bundled work; handle only one independent requirement per AI work unit.
+- When the user adds missing business rules, summarize the clarified requirement before moving to branch workflow.
+- If the user asks "next step" after requirement discussion, close intake first, then move to `ai-branch-workflow`; do not jump to implementation.
 
 ## Stop
 
@@ -22,6 +25,11 @@ Ask before continuing when:
 - Multiple independent requirements are mixed.
 - Acceptance criteria or affected modules are unclear.
 - A business, compatibility, permission, or data-risk decision is missing.
+
+## Gate
+
+Requirement intake is complete only after the assistant has stated the goal, scope, non-goals, affected areas, and verification plan in Chinese.
+This closes clarification, but it does not authorize implementation.
 
 ## Output
 

@@ -18,6 +18,14 @@ Entry skill. Use it to pick the next phase skill; keep detailed rules in phase s
 7. `ai-handoff`: final delivery.
 8. `ai-apifox-sync`: API changes only.
 
+## Conversation Entry
+
+Treat natural design discussion as the start of the workflow when it is likely to become code work.
+Examples include "design this module", "our current idea is", "next step", "start implementation", or "build it this way".
+
+Do not treat requirement clarification, branch confirmation, or AI branch creation as permission to implement.
+After those steps, continue to the next gate in the flow.
+
 ## Branch Modes
 
 - Requirement branch: work directly on current branch; skip `ai/...` and merge-back.
@@ -34,6 +42,8 @@ Before implementation:
 - Scope, non-goals, affected areas, and verification are clear.
 - Branch mode is known.
 - Chinese spec is confirmed.
+- The user has confirmed the Chinese spec in the current workflow after branch mode is known.
+- If the user only confirmed "personal branch" or "requirement branch", that confirms branch mode only; next step is `ai-spec-writing`, not implementation.
 
 Before delivery:
 

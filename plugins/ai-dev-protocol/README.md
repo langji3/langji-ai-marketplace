@@ -101,6 +101,7 @@ ai-dev-protocol/
   CHANGELOG.md
   docs/
     iteration-guide.md
+    team-collaboration-guide.md
   .codex-plugin/
     plugin.json
   .claude-plugin/
@@ -156,10 +157,22 @@ ai-dev-protocol/
 6. 验证：根据项目情况运行测试、构建、静态检查，不能运行时要说明原因。
 7. 提交规则：使用 `ai-commit-rules` 检查中文 commit message，并按 `feat:` / `fix:` 分类。
 8. Merge-back：个人分支模式下使用 `ai-merge-back` 将 AI 分支 squash merge 回开发者个人分支；需求分支模式跳过。
-9. 最终交付：使用 `ai-handoff` 输出变更摘要、分支模式、merge-back 状态、验证结果、风险说明和开发者接管说明。
+9. 最终交付：使用 `ai-handoff` 输出变更摘要、分支模式、merge-back 状态、实现范围记录、范围变化说明、验证结果、风险说明和开发者接管说明。
 10. API 变更：使用 `ai-apifox-sync` 输出 Apifox sync summary。
 
+### 对话式需求入口
+
+开发人员通常会先用自然语言讨论模块设计，例如“我现在要设计一个模块”“我们目前的想法是”“下一步会做什么”。这类对话如果可能进入代码实现，也属于正式流程入口。
+
+- AI 应先把自然讨论收口为需求目标、范围、非目标、影响区域和验证方式。
+- 用户确认“个人分支”或“需求分支”只表示分支模式确认，不表示允许实现。
+- 个人分支模式下，即使已经创建 `ai/...` 分支，也必须先输出中文 spec 并等待用户确认。
+- 只有在当前工作流里确认过中文 spec 后，AI 才能进入实现或修改文件。
+- 如果实现中发现影响区域变化，AI 必须说明新增或移除的范围，并在最终交付中记录。
+
 ## 安装方式
+
+团队协作落地说明见 `docs/team-collaboration-guide.md`，其中包含团队插件市场的使用方式。
 
 ### Codex Plugin
 

@@ -23,6 +23,8 @@ alwaysApply: false
 - 动手前先确认需求范围；范围不清时必须提问。
 - 实现前写中文 spec，包含目标、范围、非目标、影响区域和验证方式。
 - 实现前先根据当前分支命名风格选择分支模式。
+- 模块设计或需求讨论如果可能进入代码实现，也必须先走需求澄清。
+- 用户确认“个人分支”或“需求分支”只表示分支模式已确认，不表示允许实现。
 - 当前分支已是明确需求分支时，直接在当前分支工作并跳过额外 AI 分支。
 - 当前分支是个人开发分支时，从该分支创建 `ai/{yyyyMMdd}-{developer}-{short-desc}` 分支。
 - 不直接在 `main`、`master`、`dev`、`develop`、`site`、`staging`、`test`、`prod`、`production` 等主干或环境分支上实现。
@@ -30,7 +32,7 @@ alwaysApply: false
 - 不混入无关重构、格式化、依赖升级或 workflow 产物。
 - commit message 使用中文，需求用 `feat:`，修改用 `fix:`。
 - 个人分支模式下，AI 验证后 squash merge 回开发者个人分支；需求分支模式跳过 merge-back。
-- 最终交付包含验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary。
+- 最终交付包含实现范围记录、范围变化说明、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary。
 
 阶段对应关系：
 

@@ -10,7 +10,7 @@
       "displayName": "AI Dev Protocol",
       "description": "Team workflow protocol for AI-assisted software development.",
       "source": "./plugins/ai-dev-protocol",
-      "version": "0.2.3",
+      "version": "0.2.6",
       "author": {
         "name": "Langji Team"
       },

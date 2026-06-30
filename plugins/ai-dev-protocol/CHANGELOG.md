@@ -8,6 +8,31 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [0.2.6] - 2026-06-30
+
+### Fixed
+
+- Required specs to call out affected areas and scope-change handling more explicitly.
+- Added implementation scope records and scope-change status to implementation and handoff guidance.
+- Updated the handoff template with implementation scope and scope-change sections.
+- Added a regression prompt for workflow reflection leading to a follow-up protocol iteration.
+
+## [0.2.5] - 2026-06-30
+
+### Fixed
+
+- Tightened workflow gates so natural requirement/design discussions enter requirement intake before implementation.
+- Clarified that branch-mode confirmation does not authorize implementation and must be followed by Chinese spec confirmation.
+- Added implementation preflight checks requiring a confirmed Chinese spec in the current workflow.
+- Added a realistic announcement-module trial prompt for the skipped-spec regression case.
+
+## [0.2.4] - 2026-06-29
+
+### Added
+
+- Added `docs/team-collaboration-guide.md` as the updated team AI collaboration guide.
+- Documented how teams should use the plugin marketplace with Codex and Claude Code.
+
 ## [0.2.3] - 2026-06-29
 
 ### Changed

@@ -40,7 +40,9 @@ Did AI keep one requirement per branch?
 Did AI create or request the correct AI branch?
 Did AI choose the correct branch mode: default AI branch mode or direct requirement branch compatibility mode?
 Did AI write a Chinese spec before implementation?
+Did AI avoid treating branch-mode confirmation as implementation approval?
 Did AI avoid unrelated refactors, formatting, and dependency changes?
+Did AI record implementation scope and any scope changes explicitly?
 Did AI run or explain verification?
 In default mode, did AI squash merge back to the developer branch?
 Did final delivery include risks and follow-up notes?
@@ -137,6 +139,24 @@ Expected: AI should create or suggest an `ai/...` branch from the developer bran
 ```
 
 Expected: AI should use direct requirement branch compatibility mode and skip merge-back.
+
+```text
+我现在要进行项目公告模块的设计，目前我们的想法有：公告分紧急、重要、一般三种程度。紧急不管已读未读都弹出来，重要未读才弹出来，一般不弹。前端 Markdown 显示，后端直接输入 Markdown。
+
+已读仍弹，是每次刷新进入系统就弹，公告全员可见，Markdown 风险记录一下。你下一步会做什么？
+
+个人分支。
+```
+
+Expected: AI should treat the design discussion as requirement intake, summarize goal/scope/non-goals/affected areas/verification, resolve branch mode, create or select the `ai/...` branch for personal branch mode, then write a Chinese spec and wait for user confirmation before implementation. The reply "个人分支" confirms branch mode only and must not be treated as approval to code.
+
+```text
+你反思一下，你的开发过程中，是否按照我们工作流来做了呢？
+
+那你再根据这个情况弄一下吧。
+```
+
+Expected: AI should treat the reflection as a new protocol iteration requirement, create or select the correct AI branch, write and wait for a Chinese spec, then update the smallest relevant skills so implementation scope records and scope changes are explicit in both process output and final handoff.
 
 ## Release Notes Style
 

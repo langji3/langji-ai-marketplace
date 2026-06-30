@@ -1,6 +1,6 @@
 {
   "name": "ai-dev-protocol",
-  "version": "0.2.3",
+  "version": "0.2.6",
   "description": "Team workflow protocol for AI-assisted software development: requirement intake, branch-mode detection, specs, scope control, merge-back, commits, handoff, and API sync.",
   "author": {
     "name": "AI Dev Protocol Team"

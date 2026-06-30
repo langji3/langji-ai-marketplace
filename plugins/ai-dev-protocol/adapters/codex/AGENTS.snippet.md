@@ -19,9 +19,11 @@ AI 不应直接在 `main`、`master`、`dev`、`develop`、`site`、`staging`、
 - `ai-implementation-scope`：范围控制，禁止无关改动。
 - `ai-commit-rules`：中文 `feat:` / `fix:` commit。
 - `ai-merge-back`：个人分支模式下 squash merge 回开发者个人分支。
-- `ai-handoff`：最终交付、验证说明和开发者接管说明。
+- `ai-handoff`：最终交付、实现范围记录、范围变化说明、验证说明和开发者接管说明。
 - `ai-apifox-sync`：API 变更后的 Apifox sync summary。
 
 如果这些 skills 由 Codex plugin 加载，名称可能显示为 `ai-dev-protocol:<skill-name>`。
+
+自然语言的模块设计讨论如果可能进入代码实现，也必须从 `ai-requirement-intake` 开始。用户确认“个人分支”或“需求分支”只表示分支模式已确认，不表示允许实现；下一步必须进入 `ai-spec-writing`，等待中文 spec 确认后才能改文件。
 
 完整规则以 `skills/` 下各 `SKILL.md` 为准。

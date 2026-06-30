@@ -25,7 +25,12 @@
 - API：
 - 数据库：
 - 配置：
+- skills/adapters/docs/templates/manifests：
 - 其他：
+
+## 范围变化处理方式
+
+- 如果实现中发现影响区域新增、移除或不适用，先说明变化并更新或重新确认 spec。
 
 ## 实现思路
 

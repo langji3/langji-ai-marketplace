@@ -13,6 +13,10 @@ Use after requirement intake and branch-mode selection, before implementation.
 - Preserve English for code identifiers, API paths, table names, config keys, commands, and file paths.
 - Use `templates/requirement-spec.md` when structure helps.
 - Wait for user confirmation before implementation.
+- Write the spec after branch mode is known, including after the user confirms an ambiguous branch as personal or requirement branch.
+- Treat branch-mode confirmation as input to the spec, not as spec confirmation.
+- List affected areas explicitly. Include skills, adapters, docs, templates, manifests, API contracts, database migrations, tests, and configuration when they may need synchronized changes.
+- If implementation discovers a target file or area from the spec is missing, irrelevant, or newly required, state the scope change and update or reconfirm the spec before editing outside the confirmed scope.
 
 ## Include
 
@@ -24,9 +28,11 @@ Use after requirement intake and branch-mode selection, before implementation.
 - 实现思路
 - 验证方式
 - 风险与注意事项
+- 范围变化处理方式
 
 ## Stop
 
 If the user changes scope, update the spec or reconfirm before editing.
+If no Chinese spec has been confirmed in the current workflow, do not call implementation complete and do not edit files.
 
 Next: `ai-implementation-scope`.

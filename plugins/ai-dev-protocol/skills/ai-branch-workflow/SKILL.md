@@ -24,6 +24,9 @@ Apply project rules first. Otherwise classify current branch:
 - Existing `ai/...`: continue work; identify source developer branch.
 - Forbidden branch: stop unless user confirms exception.
 - Ambiguous branch: ask whether it is personal or requirement branch.
+- User confirmation of "personal branch" or "requirement branch" only resolves branch mode. It is not approval to implement.
+- After branch mode is resolved, always continue to `ai-spec-writing` unless a confirmed Chinese spec already exists for the same requirement in the current workflow.
+- In personal branch mode, after creating or switching to the `ai/...` branch, stop at `ai-spec-writing` and wait for spec confirmation before editing files.
 
 ## Naming
 
