@@ -5,6 +5,7 @@
 - Spec 文档：
 - Spec 提交：
 - Spec 确认状态：
+- Plan 文档：
 - AI 分支：
 - 开发者分支：
 
@@ -27,7 +28,7 @@
 
 ## Git 状态
 
-- 本文件路径：
+- 本文件路径：`docs/plans/{yyyyMMdd}-{short-desc}-plan.md`
 - 是否被 `.gitignore` 忽略：
 - 是否未被 Git 追踪：
 

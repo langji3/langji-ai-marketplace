@@ -16,7 +16,7 @@ Before editing files, verify:
 - A Chinese spec exists in the current workflow.
 - The user confirmed that spec after branch mode was known.
 - The confirmed spec is committed under `docs/specs/` on the `ai/...` branch.
-- A local plan exists and is ignored by Git before implementation starts.
+- A local plan exists under `docs/plans/` and is ignored by Git before implementation starts.
 - The requested edit still matches the confirmed spec.
 - The affected files or areas are covered by the confirmed spec, or the scope change has been stated and reconfirmed.
 
@@ -27,13 +27,14 @@ Before editing, briefly record what will change and why it is inside scope.
 ## Implementation Plan
 
 - Before editing, create a local plan file with concrete goals or steps that can be completed and verified.
-- Prefer `.ai-dev-protocol/plans/{yyyyMMdd}-{short-desc}-plan.md`; this path must be ignored by Git.
+- Put every local plan under `docs/plans/{yyyyMMdd}-{short-desc}-plan.md`, using the corresponding `docs/specs/{yyyyMMdd}-{short-desc}.md` basename.
+- The `docs/plans/` path must be ignored by Git.
 - Confirm the local plan is not tracked by Git before editing implementation files.
 - For substantial tasks, include goals for implementation, verification, independent review, and handoff.
 - Keep the plan as a local execution aid; do not commit it.
 - Update goal status as work progresses instead of only summarizing at the end.
 - For tiny single-file edits, a lightweight plan is acceptable, but still state the immediate edit and verification path.
-- Use the Superpowers-style method as a working pattern: decompose goals, finish them one by one, and review independently. Do not create `.superpowers/` artifacts.
+- Borrow only the useful lightweight parts of Superpowers-style work: read necessary context, decompose goals, finish them one by one, guard scope, and review independently. Do not create `.superpowers/` artifacts or hidden workflow state.
 
 ## Subagent Collaboration
 

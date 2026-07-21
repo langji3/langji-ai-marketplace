@@ -7,23 +7,25 @@ alwaysApply: false
 
 # AI Dev Protocol
 
-当 Cursor AI 处理需求实现、代码修改、bug fix、提交或交付时，遵守 AI Dev Protocol。
+当 Cursor AI 处理需求实现、代码修改、bug fix、提交或交付时，先按 AI Dev Protocol 选择 Quick Fix Path 或 Full Development Flow。
 
-本协议在 Codex 中拆分为多个 workflow skills；Cursor 使用本 rule 读取同一套核心规则。
+本协议在 Codex 中由一个 Router skill 和多个内部阶段模块组成；Cursor 使用本 rule 读取同一套核心规则。
 
-开发者分支工作流：AI 在实现前先确认当前开发者分支或已有 `ai/...` 分支。
+Full Development Flow 的开发者分支工作流：AI 在实现前先确认当前开发者分支或已有 `ai/...` 分支。
 
 - 开发者分支：如果当前分支是开发者汇总分支，例如 `developer/<name>`、`dev/<name>`、`<name>/dev`，或用户明确指定的团队开发者汇总分支，每个明确需求从该分支创建一个 `ai/...` 分支。
-- AI 分支：AI 先提交 `docs/specs/*.md`，再创建未追踪的本地 plan，完成实现和验证后 squash merge 回开发者分支。
+- AI 分支：AI 先提交 `docs/specs/*.md`，再在 `docs/plans/` 创建对应 spec 的未追踪本地 plan；完成实现和验证后先汇报，取得开发者对本次 merge-back 的明确授权后才能 squash merge 回开发者分支。
 - 分支含义不明确时，AI 必须先询问当前分支是否作为开发者分支使用。
 
-核心规则：
+Quick Fix Path：用户明确接受快速修改，且任务范围小、风险低，不涉及 API / 数据库 / 权限安全 / 依赖构建 / 跨模块行为 / 发布版本 / 分支集成时，可在用户授权的当前分支直接修改，不创建 AI 分支、spec、plan、提交或 merge-back；AI 做聚焦自检，并明确由用户最终验证。范围扩大、命中风险项或无法确定时切换到完整流程。
+
+以下核心规则适用于 Full Development Flow：
 
 - 一个 AI 工作单元只处理一个明确 requirement。
 - 动手前先确认需求范围；范围不清时必须提问。
 - 实现前写中文 spec，包含目标、范围、非目标、影响区域和验证方式。
 - spec 必须写入并提交到 `docs/specs/*.md`。
-- spec 确认后先创建未追踪的本地 plan，再拆分 plan/goals 并随着推进更新状态；极小改动可使用轻量 plan。
+- spec 确认后先在 `docs/plans/` 创建对应 spec 的未追踪本地 plan，再拆分 plan/goals 并随着推进更新状态。
 - 复杂任务或代码变更优先使用 subagent / 多 AI 做独立审查；不可用时记录替代自检。
 - 实现前确认开发者分支或已有 AI 分支。
 - 模块设计或需求讨论如果可能进入代码实现，也必须先走需求澄清。
@@ -32,10 +34,10 @@ alwaysApply: false
 - 不直接在 `main`、`master`、`dev`、`develop`、`site`、`staging`、`test`、`prod`、`production` 等主干或环境分支上实现。
 - spec、交付摘要、Apifox 摘要使用中文；代码标识符、API 路径、表名、配置键保持英文。
 - 不混入无关重构、格式化、依赖升级或 workflow 产物。
-- 可以借鉴 Superpowers 式逐 goal 推进的方法，但 plan 是本地临时执行文件，不得进入 Git 追踪；不得创建 `.superpowers/` 产物，除非用户明确要求。
+- 可以借鉴 Superpowers 中轻量有效的上下文控制、goal 拆分、范围守卫和独立审查方法，但 plan 是本地临时执行文件，不得进入 Git 追踪；不得创建 `.superpowers/` 产物，除非用户明确要求。
 - commit message 使用中文，需求用 `feat:`，修改用 `fix:`。
-- AI 验证后 squash merge 回开发者分支。
-- 最终交付包含 spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary。
+- AI 验证后汇报 merge-back 准备状态并单独请求授权；spec 确认不代表合回授权，未明确同意时不得修改开发者分支。
+- 最终交付包含 spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary；用户需要录入 Apifox 时，抽取受影响接口和数据模型 JSON Schema 清单。
 
 阶段对应关系：
 
@@ -48,4 +50,4 @@ alwaysApply: false
 - 最终交付：`ai-handoff`
 - API 同步：`ai-apifox-sync`
 
-完整规则以仓库 `skills/` 下各 `SKILL.md` 为准。
+完整规则以仓库 `skills/ai-dev-protocol/SKILL.md` 及其 `phases/` 内部阶段规则为准。

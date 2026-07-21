@@ -70,8 +70,8 @@
 
 新增本地临时 plan 文件约定：
 
-- 推荐路径：`.ai-dev-protocol/plans/{yyyyMMdd}-{short-desc}-plan.md`
-- 该路径必须被 `.gitignore` 忽略，或使用工具环境自身的临时区。
+- 统一路径：`docs/plans/{yyyyMMdd}-{short-desc}-plan.md`
+- 该路径必须被 `.gitignore` 忽略。
 - plan 文件用于实现过程中的 goal 拆分、状态推进、验证和审查记录，不进入 Git 追踪。
 
 个人分支模式推荐流程调整为：

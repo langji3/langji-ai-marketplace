@@ -1,9 +1,9 @@
 {
   "name": "ai-dev-protocol",
-  "version": "0.2.9",
-  "description": "Small-team workflow protocol for AI-assisted software development: requirement intake, developer-branch workflow, specs, scope control, merge-back, commits, handoff, and API sync.",
+  "version": "2.0.0",
+  "description": "Lightweight team workflow plugin for AI-assisted software development: requirement intake, developer-branch workflow, specs, scope control, merge-back, commits, handoff, and Apifox API/catalog sync.",
   "author": {
-    "name": "AI Dev Protocol Team"
+    "name": "Langji"
   },
   "license": "MIT",
   "keywords": [
@@ -16,9 +16,9 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "AI Dev Protocol",
-    "shortDescription": "Team workflow skills for AI-assisted development",
-    "longDescription": "Use AI Dev Protocol to guide coding agents through phased workflow skills for requirement intake, developer-branch workflow, Chinese specs, scope control, merge-back, commits, handoff, and Apifox sync summaries.",
-    "developerName": "AI Dev Protocol Team",
+    "shortDescription": "Router-first team workflow for AI-assisted development",
+    "longDescription": "Use AI Dev Protocol to guide coding agents through a lightweight team workflow for requirement intake, developer-branch workflow, Chinese specs, scope control, merge-back, commits, handoff, Apifox sync summaries, and Apifox-ready interface/model catalogs. It borrows useful skill-system practices without adopting heavy hidden workflow state.",
+    "developerName": "Langji",
     "category": "Coding",
     "capabilities": [
       "Interactive",
@@ -28,7 +28,7 @@
     "defaultPrompt": [
       "Use AI Dev Protocol for this feature.",
       "Help me clarify and implement one requirement.",
-      "Prepare a verified handoff and merge-back for this AI branch."
+      "Prepare a verified handoff and request merge-back approval for this AI branch."
     ]
   }
 }

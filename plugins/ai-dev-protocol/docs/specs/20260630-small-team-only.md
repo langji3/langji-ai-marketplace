@@ -70,7 +70,7 @@
 2. 一个需求创建一个 `ai/{yyyyMMdd}-{developer}-{short-desc}` 分支。
 3. 在 AI 分支提交 `docs/specs/{yyyyMMdd}-{short-desc}.md`。
 4. 用户确认 spec。
-5. 创建 `.ai-dev-protocol/plans/{yyyyMMdd}-{short-desc}-plan.md` 本地临时 plan，并确认未被 Git 追踪。
+5. 创建 `docs/plans/{yyyyMMdd}-{short-desc}-plan.md` 本地临时 plan，并确认未被 Git 追踪。
 6. 按 plan 实现、验证、subagent 审查。
 7. 在 AI 分支提交实现。
 8. squash merge 回开发者分支。
@@ -85,7 +85,7 @@
 ## 实现计划与审查方式
 
 - 本 spec 确认后创建本地临时 plan。
-- 本地 plan 路径：`.ai-dev-protocol/plans/20260630-small-team-only-plan.md`
+- 本地 plan 路径：`docs/plans/20260630-small-team-only-plan.md`
 - 适合 subagent 审查：是。
 - 审查重点：是否还有 requirement branch / direct requirement branch / skip merge-back 等残留规则；个人分支链路是否完整。
 
@@ -94,7 +94,7 @@
 - `rg` 检查 requirement branch、需求分支模式、direct requirement branch、skip merge-back 等是否只保留在历史 changelog 或明确说明旧版本的上下文中。
 - 检查 README、skills、adapters、install 文档同步为个人分支模式。
 - 检查 plugin manifest JSON 可解析，版本号一致。
-- 检查 `.ai-dev-protocol/plans/*.md` 被忽略且未被 Git 追踪。
+- 检查 `docs/plans/*.md` 被忽略且未被 Git 追踪。
 - 执行 `git diff --check`。
 - 使用 subagent 做独立审查并修复发现。
 

@@ -8,6 +8,64 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [2.0.0] - 2026-07-21
+
+### Added
+
+- Added a Router-first Quick Fix Path for user-approved, low-risk small edits, with user-owned final verification.
+- Added Codex Router interface metadata and bundled phase resources so Codex and Claude Code discover only the main skill.
+- Added cross-platform validation and scenario evaluation work to the iteration backlog.
+
+### Changed
+
+- Moved phase rules into bundled modules selected by `ai-dev-protocol` instead of competing public skill entries.
+- Kept API/schema, database, auth/security, dependency/build, cross-module, release, and branch-integration changes on the full workflow.
+- Aligned default prompts and trial expectations with the separate developer merge-back authorization gate.
+- Unified plugin authorship as `Langji` and updated plugin metadata to version `2.0.0`.
+
+### Migration Notes
+
+- Invoke `ai-dev-protocol` for normal work; phase rules now live under its bundled `phases/` resources and are not independent plugin skills.
+- Teams may use Quick Fix only when the user accepts it and every low-risk condition is satisfied; otherwise retain the full spec/plan/AI-branch flow.
+
+## [1.0.0] - 2026-07-20
+
+### Changed
+
+- Made merge-back a separate developer authorization gate after implementation and verification reporting.
+- Prevented spec confirmation, implementation approval, or vague earlier consent from being reused as merge-back authorization.
+- Required AI to leave the developer branch untouched when merge-back is unapproved, rejected, or cancelled.
+- Updated plugin metadata to version `1.0.0` for the hard-gate behavior change.
+
+## [0.4.0] - 2026-07-20
+
+### Added
+
+- Added an Apifox entry catalog capability to extract affected interfaces and data models from requirements, specs, diffs, handoffs, or change descriptions.
+- Added `skills/ai-apifox-sync/templates/apifox-entry-catalog.md` for Apifox-ready interface/model checklists.
+
+### Changed
+
+- Expanded `ai-apifox-sync` from API sync summaries to Apifox-ready catalog generation.
+- Required JSON Schema blocks for every data model in Apifox entry catalogs, including request-side Path, Query, Header, Cookie, and Body schemas.
+- Updated README, adapters, handoff, usage scenarios, and plugin metadata for Apifox catalog extraction.
+- Updated plugin metadata to version `0.4.0`.
+
+## [0.3.0] - 2026-07-14
+
+### Added
+
+- Added design principles for the lightweight plugin direction and Superpowers-inspired boundaries.
+- Added usage scenarios for new requirements, existing AI branches, small fixes, API sync, design discussion, scope expansion, and handoff.
+
+### Changed
+
+- Repositioned AI Dev Protocol as a lightweight team workflow plugin rather than a broad Superpowers-compatible workflow layer.
+- Clarified that the plugin borrows selected Superpowers-style methods without adopting hidden workflow state or `.superpowers/` artifacts.
+- Added recovery-mode guidance to the main routing skill.
+- Standardized local plan placement under ignored `docs/plans/` using the corresponding spec basename.
+- Updated plugin metadata to version `0.3.0`.
+
 ## [0.2.9] - 2026-06-30
 
 ### Changed
@@ -22,7 +80,7 @@ All notable changes to AI Dev Protocol are documented here.
 ### Fixed
 
 - Required personal branch mode to commit requirement specs under `docs/specs/` before implementation.
-- Defined ignored local plan files under `.ai-dev-protocol/plans/` for personal branch mode execution.
+- Defined ignored local plan files for personal branch mode execution.
 - Updated implementation, merge-back, and handoff guidance to record spec status, local plan status, and merge-back state.
 - Added a local plan template and ignored `.ai-dev-protocol/` local workflow state.
 
