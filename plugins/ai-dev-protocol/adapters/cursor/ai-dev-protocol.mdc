@@ -7,7 +7,7 @@ alwaysApply: false
 
 # AI Dev Protocol
 
-当 Cursor AI 处理需求实现、代码修改、bug fix、提交或交付时，先按 AI Dev Protocol 选择 Quick Fix Path 或 Full Development Flow。
+Cursor AI 先按 AI Dev Protocol 选择 Discussion Only、Apifox Standalone、Quick Fix Path 或 Full Development Flow。
 
 本协议在 Codex 中由一个 Router skill 和多个内部阶段模块组成；Cursor 使用本 rule 读取同一套核心规则。
 
@@ -37,7 +37,8 @@ Quick Fix Path：用户明确接受快速修改，且任务范围小、风险低
 - 可以借鉴 Superpowers 中轻量有效的上下文控制、goal 拆分、范围守卫和独立审查方法，但 plan 是本地临时执行文件，不得进入 Git 追踪；不得创建 `.superpowers/` 产物，除非用户明确要求。
 - commit message 使用中文，需求用 `feat:`，修改用 `fix:`。
 - AI 验证后汇报 merge-back 准备状态并单独请求授权；spec 确认不代表合回授权，未明确同意时不得修改开发者分支。
-- 最终交付包含 spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary；用户需要录入 Apifox 时，抽取受影响接口和数据模型 JSON Schema 清单。
+- 最终交付包含 spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、merge-back 状态和开发者接管说明；API 变更包含 Apifox sync summary；用户可选择只读接口/完整响应模型清单，或指定已有模块后的 CLI 同步计划。
+- Apifox CLI 写入前必须核验当前 CLI、project、已有模块、Apifox branch、接口/响应模型双目录和动态 payload schema，展示 create/update/skip 计划并取得独立授权；默认不删除、不 blanket import、不合并 Apifox 分支，写入后回读。
 
 阶段对应关系：
 

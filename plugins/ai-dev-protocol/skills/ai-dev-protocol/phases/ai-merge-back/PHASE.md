@@ -1,8 +1,3 @@
----
-name: ai-merge-back
-description: Prepare and, only after explicit developer approval, squash merge completed AI work back to the developer branch in AI Dev Protocol. Use after implementation and verification on an ai/... branch to report merge readiness, request merge-back authorization, or execute an authorized merge-back.
----
-
 # AI Merge Back
 
 Use after verified work is complete on an `ai/...` branch. Treat merge-back as a separate authorization gate.

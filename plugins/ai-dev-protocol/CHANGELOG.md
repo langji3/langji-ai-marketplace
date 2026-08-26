@@ -8,6 +8,28 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [2.1.0] - 2026-08-26
+
+### Added
+
+- Added an Apifox-only standalone route with read-only catalog and separately authorized CLI synchronization modes.
+- Added runtime CLI guidance for existing-module targeting, independent endpoint/schema directory trees, dynamic payload schema validation, idempotent operations, and read-back verification.
+- Added CLI planning/execution sections to Apifox and handoff templates.
+
+### Changed
+
+- Converted all internal phase entry files from discoverable `SKILL.md` files to linked, frontmatter-free `PHASE.md` resources so only the main Router is exposed.
+- Added explicit Discussion Only routing and clarified `main` branch classification after developer aggregation confirmation.
+- Kept request definitions inline: JSON Body uses endpoint JSON Schema, Query CSV is limited to manual catalog mode, and CLI mode maps parameters directly into endpoint payloads.
+- Made complete backend response-model schemas the primary Apifox model deliverable and removed standalone request/response JSON examples.
+- Updated plugin metadata to version `2.1.0`.
+
+### Safety
+
+- Apifox CLI writes require an exact project, existing module, branch, operation plan, and immediate explicit authorization.
+- Missing CLI capability, ambiguous module assignment, conflicts, validation failures, or absent authorization stop safely without external mutation.
+- Default CLI synchronization does not install tools, expose tokens, delete resources, blanket import, or merge Apifox branches.
+
 ## [2.0.0] - 2026-07-21
 
 ### Added

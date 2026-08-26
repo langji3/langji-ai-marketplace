@@ -1,11 +1,11 @@
 ---
 name: ai-dev-protocol
-description: Route AI-assisted development tasks through AI Dev Protocol. Use for coding tasks that need quick low-risk edit classification, requirement clarification, developer-branch workflow selection, Chinese specs, scoped implementation, commits, merge-back, verified handoff, Apifox API sync summaries, or Apifox-ready interface/model catalogs.
+description: Route AI-assisted development tasks through AI Dev Protocol. Use for coding tasks that need quick low-risk edit classification, requirement clarification, developer-branch workflow selection, Chinese specs, scoped implementation, commits, merge-back, verified handoff, Apifox API catalogs, or gated Apifox CLI synchronization.
 ---
 
 # AI Dev Protocol
 
-Public router skill. Users normally invoke only this skill. Treat bundled phase files under `phases/` as internal modules: after selecting a phase, read `phases/<phase>/SKILL.md` completely before acting.
+Public router skill. Users normally invoke only this skill. Treat bundled phase files under `phases/` as internal modules, not public skills: after selecting a phase, follow its Markdown link and read the `PHASE.md` completely before acting.
 
 AI Dev Protocol is a lightweight team workflow plugin. It owns requirement clarity, branch gates, specs, scope control, commits, handoff, and API sync. It may borrow useful Superpowers-style working methods, but it must not inherit heavy hidden state, broad agent role systems, or `.superpowers/` artifacts.
 
@@ -13,20 +13,37 @@ AI Dev Protocol is a lightweight team workflow plugin. It owns requirement clari
 
 Classify the request before starting workflow artifacts:
 
+- Use Discussion Only when the user explicitly wants analysis, explanation, design discussion, review, or a proposal without repository or Apifox mutation.
+- Use the Apifox Standalone Route when the requested outcome is an Apifox summary, catalog, synchronization plan, or CLI synchronization and no repository implementation is requested.
 - Use the Quick Fix Path only when every quick-fix condition below is satisfied.
 - Use the Full Development Flow for features, non-trivial fixes, risky changes, or any uncertain classification.
 - Read only the internal phase modules needed for the selected path. Do not ask users to orchestrate phase modules themselves.
 
+## Standalone Routes
+
+### Discussion Only
+
+Answer the question or produce the requested design/review. Do not create a Git branch, repository spec, local plan, implementation commit, merge-back artifact, Apifox branch, or external write. If the user later asks to implement or synchronize, reclassify from the new request.
+
+### Apifox Standalone
+
+Read [AI Apifox Sync](phases/ai-apifox-sync/PHASE.md) and choose one mode:
+
+- `Sync Summary` or `Apifox Entry Catalog`: read-only; do not create development workflow artifacts.
+- `Apifox CLI Sync`: external mutation path; resolve the exact project, existing module, and Apifox branch, prepare and validate a dry operation plan, then obtain explicit authorization immediately before the CLI write.
+
+Repository spec confirmation, implementation approval, or a request for an Apifox document does not authorize external Apifox mutation. If both repository code and Apifox must change, complete repository implementation and verification first, then enter the same separate CLI write gate.
+
 ## Full Development Flow
 
-1. `ai-requirement-intake`: clarify one independent requirement.
-2. `ai-branch-workflow`: detect developer branch, existing AI branch, or blocked branch.
-3. `ai-spec-writing`: write and confirm Chinese spec.
-4. `ai-implementation-scope`: implement within confirmed scope.
-5. `ai-commit-rules`: prepare/review Chinese `feat:` / `fix:` commits.
-6. `ai-merge-back`: report merge readiness, request explicit developer approval, then squash merge `ai/...` back only after approval.
-7. `ai-handoff`: final delivery.
-8. `ai-apifox-sync`: API changes, Apifox sync summaries, and Apifox-ready interface/model catalogs.
+1. [AI Requirement Intake](phases/ai-requirement-intake/PHASE.md): clarify one independent requirement.
+2. [AI Branch Workflow](phases/ai-branch-workflow/PHASE.md): detect developer branch, existing AI branch, or blocked branch.
+3. [AI Spec Writing](phases/ai-spec-writing/PHASE.md): write and confirm Chinese spec.
+4. [AI Implementation Scope](phases/ai-implementation-scope/PHASE.md): implement within confirmed scope.
+5. [AI Commit Rules](phases/ai-commit-rules/PHASE.md): prepare/review Chinese `feat:` / `fix:` commits.
+6. [AI Merge Back](phases/ai-merge-back/PHASE.md): report merge readiness, request explicit developer approval, then squash merge `ai/...` back only after approval.
+7. [AI Handoff](phases/ai-handoff/PHASE.md): final delivery.
+8. [AI Apifox Sync](phases/ai-apifox-sync/PHASE.md): API changes, read-only Apifox artifacts, and separately authorized CLI synchronization.
 
 ## Quick Fix Path
 
@@ -98,7 +115,7 @@ Before full-flow delivery:
 - Commits use Chinese `feat:` / `fix:` when created.
 - Merge-back status is recorded.
 - Developer takeover is stated.
-- API changes include Apifox sync summary, and Apifox-ready catalogs when requested.
+- API changes include an Apifox sync summary and Apifox-ready catalogs when requested. CLI synchronization is optional and requires its own external-write authorization.
 
 Before merge-back:
 
@@ -115,8 +132,8 @@ Do not assume the workflow starts from zero. Before deciding the next phase, inf
 - Git status: clean, unstaged work, staged work, committed implementation, or local branch ahead.
 - Spec status: missing, present but unconfirmed, confirmed, or stale.
 - Local plan status: missing, present and ignored under `docs/plans/`, or incorrectly tracked / misplaced.
-- API sync status: no API change, summary needed, Apifox entry catalog requested, or Apifox-ready list completed.
-- Path status: Quick Fix Path still qualifies, or the task must continue through the Full Development Flow.
+- API sync status: no API change, summary needed, catalog requested/completed, CLI plan needed/validated, CLI write awaiting authorization, CLI write completed/verified, or CLI sync blocked.
+- Path status: Discussion Only, Apifox Standalone, Quick Fix Path, or Full Development Flow.
 
 ## Global Rules
 
@@ -125,4 +142,5 @@ Do not assume the workflow starts from zero. Before deciding the next phase, inf
 - No unrelated refactor, formatting sweep, dependency upgrade, tracked plan file, `.superpowers/`, or external workflow artifact unless explicitly requested.
 - Implementation may borrow selected Superpowers-style methods: context hygiene, goal decomposition, step-by-step progress, scope guard, and independent review. Create an ignored local plan file for execution; do not create `.superpowers/` files or hidden workflow artifacts.
 - Never merge, squash merge, cherry-pick, or commit implementation onto the developer branch without explicit developer approval for that specific merge-back.
+- Never treat read-only analysis, a repository workflow approval, or a prior Apifox request as permission for a later external write. Immediately before an Apifox CLI mutation, restate the exact target and operation plan and obtain explicit approval.
 - Developer owns final review, self-test, integration testing, PR, merge, and code quality.

@@ -71,7 +71,7 @@ Expected behavior:
 - Treat the endpoint as an API contract change.
 - Include request, response, permission, error cases, compatibility, and verification in the spec.
 - In final delivery, include Apifox sync summary.
-- Ask whether the user needs an Apifox-ready "接口清单 + 数据模型 JSON Schema".
+- Ask whether the user needs a read-only Apifox-ready "接口清单 + 响应数据模型 JSON Schema" or a CLI synchronization plan for an existing module.
 - If requested, generate the complete Apifox-ready artifact using `ai-apifox-sync`.
 
 ## 5. Extract Apifox Entry Catalog
@@ -86,12 +86,33 @@ Expected behavior:
 
 - Use `ai-apifox-sync` directly, even if implementation is not being done in the current turn.
 - Read the provided requirement, spec, diff, handoff, or change description.
-- Extract affected endpoints, request models, response models, common models, enums, permissions, error codes, examples, Mock needs, and test-case notes.
-- Provide JSON Schema for every request-side model, including Path params, Query params, Headers, Cookies, and Body, plus every response model, page model, common response model, and enum-backed model.
+- Extract affected endpoints, inline request parameters, complete backend response models, enums, permissions, error codes, Mock needs, and test-case notes.
+- Do not create request-side data models: provide JSON Schema only for JSON Body, Apifox batch-edit CSV for Query, and inline parameter tables for Path / Headers / Cookies. Provide complete JSON Schema entries for every model transitively involved in an interface response, preserving the backend's real type names.
+- Do not output standalone request or response JSON examples.
 - Mark uncertain items as `待确认` instead of inventing contracts.
-- Output an Apifox-ready "接口清单 + 数据模型 JSON Schema" catalog.
+- Output an Apifox-ready "接口清单 + 响应数据模型 JSON Schema" catalog.
 
-## 6. Design Discussion Only
+## 6. Synchronize An Existing Apifox Module With CLI
+
+User says:
+
+```text
+把这次接口变更同步到 Apifox 的「订单中心」已有模块，目录你按业务自己分。
+```
+
+Expected behavior:
+
+- Use the Apifox Standalone CLI route unless repository implementation is also requested.
+- Resolve a non-secret `projectId`, the user-selected existing module, and an Apifox AI branch. Do not create a module silently or write to a shared branch without exact authorization.
+- Inspect current CLI help, login identity, existing endpoint/schema folder trees, endpoints, schemas, and dynamic payload schemas.
+- Infer a stable logical business directory, then resolve separate endpoint and schema directories. Reuse an unambiguous existing directory and show the mapping before writes.
+- Keep requests inline: JSON Body uses endpoint JSON Schema; Query and other parameters go directly into the endpoint payload. Create reusable schemas only for complete response-side backend models.
+- Build an idempotent create/update/skip plan, validate every payload, and request explicit authorization for the exact project/module/branch/plan immediately before writing.
+- Create or update response schemas before endpoints, then read every changed resource back.
+- Never expose a token, guess IDs or undocumented module fields, delete resources, blanket import, or merge the Apifox branch by default.
+- If the installed CLI cannot prove assignment to the selected module, stop with a read-only plan and a clear blocker.
+
+## 7. Design Discussion Only
 
 User says:
 
@@ -106,7 +127,7 @@ Expected behavior:
 - Do not create branches, specs, plans, or code unless the user asks to enter implementation workflow.
 - If the discussion begins to turn into implementation, summarize the requirement and ask whether to start AI Dev Protocol.
 
-## 7. Scope Expansion During Implementation
+## 8. Scope Expansion During Implementation
 
 User says:
 
@@ -121,7 +142,7 @@ Expected behavior:
 - Continue only after the user explicitly confirms the scope change.
 - Record the scope change in the local plan and final handoff.
 
-## 8. Already Implemented, Need Handoff
+## 9. Already Implemented, Need Handoff
 
 User says:
 
@@ -136,8 +157,9 @@ Expected behavior:
 - Report spec path, local plan state, implementation commit state, verification, review, risks, and merge-back status.
 - State that the developer owns final review, self-test, integration testing, PR, merge, and follow-up.
 - Include Apifox sync summary when API behavior changed.
+- If Apifox CLI was requested, report the operation-plan authorization, target project/module/branch, directory mapping, created/updated/skipped/blocked resources, and read-back verification separately from Git merge-back.
 
-## 9. Developer Approval Before Merge-back
+## 10. Developer Approval Before Merge-back
 
 User says after reviewing the completion summary:
 

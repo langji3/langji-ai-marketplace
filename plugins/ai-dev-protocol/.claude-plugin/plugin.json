@@ -1,7 +1,7 @@
 {
   "name": "ai-dev-protocol",
-  "description": "Lightweight team workflow plugin for AI-assisted software development: requirement intake, developer-branch workflow, Chinese specs, implementation scope control, merge-back, commits, handoff, and Apifox API/catalog sync.",
-  "version": "2.0.0",
+  "description": "Lightweight team workflow plugin for AI-assisted development and gated Apifox API/catalog/CLI synchronization.",
+  "version": "2.1.0",
   "author": {
     "name": "Langji"
   },

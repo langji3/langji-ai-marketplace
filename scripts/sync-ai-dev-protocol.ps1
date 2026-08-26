@@ -196,6 +196,12 @@ foreach ($item in $requiredItems) {
     Copy-Item -LiteralPath $sourceItemPath -Destination $destinationPath -Recurse -Force
 }
 
+$targetLocalPlansRoot = Join-Path $targetPluginRoot "docs\plans"
+Assert-PathWithinRoot -RootPath $targetPluginRoot -TargetPath $targetLocalPlansRoot
+if (Test-Path -LiteralPath $targetLocalPlansRoot) {
+    Remove-Item -LiteralPath $targetLocalPlansRoot -Recurse -Force
+}
+
 $manifestPath = Join-Path $targetPluginRoot ".codex-plugin\plugin.json"
 $skillsPath = Join-Path $targetPluginRoot "skills"
 

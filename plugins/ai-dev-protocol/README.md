@@ -18,10 +18,12 @@ AI Dev Protocol 是一套面向小型团队的轻量 AI 辅助开发插件：它
 
 设计原则见 `docs/design-principles.md`，常见使用方式见 `docs/usage-scenarios.md`。
 
-## 两条执行路径
+## Router 执行路径
 
 Router 先判断任务应走哪条路径：
 
+- Discussion Only：用户只要分析、设计讨论、解释或 review 时，不创建 Git / Apifox 工作流产物，也不执行外部写入。
+- Apifox Standalone：用户只要 Apifox 摘要、手工录入清单、CLI 同步计划或实际同步时，直接读取 Apifox 内部阶段，不强制进入代码开发流程。实际 CLI 写入有独立授权门。
 - Quick Fix Path：用户明确要求或接受快速修改，且改动范围小、风险低，不涉及 API / 数据库 / 权限安全 / 依赖构建 / 跨模块行为 / 发布版本 / 分支集成。AI 可在用户明确授权的当前分支直接修改，不创建 AI 分支、spec、plan、提交或 merge-back；AI 做聚焦自检，最终由用户验证。
 - Full Development Flow：功能开发、非简单修复、高风险变更或无法确定风险的任务，执行下面的完整开发者分支流。
 
@@ -77,7 +79,7 @@ ai-apifox-sync
 
 ## 核心目标
 
-1. Router 先判断 Quick Fix Path 或 Full Development Flow；无法确定时走完整流程。
+1. Router 先判断 Discussion Only、Apifox Standalone、Quick Fix Path 或 Full Development Flow；无法确定开发风险时走完整流程。
 2. Quick Fix 仅用于用户接受的低风险小修改，由用户完成最终验证。
 3. 完整流程中的一个 AI 工作单元只处理一个明确需求。
 4. AI 在动手前必须先确认需求范围。
@@ -94,7 +96,8 @@ ai-apifox-sync
 15. 最终交付必须包含测试/验证说明。
 16. AI 验证完成后汇报 merge-back 准备状态；规格确认和开发授权不等于合回授权，必须取得开发者对本次 merge-back 的明确同意后才能修改开发者分支。
 17. 最终由开发者主导 review、联调、检查和后续合并。
-18. 如有 API 变更，最终交付必须包含 Apifox sync summary，并主动询问是否需要一份可直接给 Apifox 录入的「接口清单 + 数据模型 JSON Schema」；用户也可以单独要求从需求、spec、diff 或变更说明中抽取 Apifox 录入清单。
+18. 如有 API 变更，最终交付必须包含 Apifox sync summary，并主动询问用户需要只读的「接口清单 + 响应数据模型 JSON Schema」，还是为指定已有模块生成 CLI 同步计划。
+19. Apifox CLI 模式由用户指定已有模块，AI 按业务职责规划接口目录和响应模型目录；请求不建立复用模型，模型先于接口同步。写入前必须核验当前 CLI 动态 schema、展示操作计划并取得独立授权，写入后回读验证。
 
 ## 轻量插件原则
 
@@ -140,21 +143,22 @@ ai-dev-protocol/
       SKILL.md
       agents/openai.yaml
       phases/
-        ai-requirement-intake/SKILL.md
-        ai-branch-workflow/SKILL.md
+        ai-requirement-intake/PHASE.md
+        ai-branch-workflow/PHASE.md
         ai-spec-writing/
-          SKILL.md
+          PHASE.md
           templates/requirement-spec.md
         ai-implementation-scope/
-          SKILL.md
+          PHASE.md
           templates/local-plan.md
-        ai-commit-rules/SKILL.md
-        ai-merge-back/SKILL.md
+        ai-commit-rules/PHASE.md
+        ai-merge-back/PHASE.md
         ai-handoff/
-          SKILL.md
+          PHASE.md
           templates/handoff-summary.md
         ai-apifox-sync/
-          SKILL.md
+          PHASE.md
+          references/apifox-cli.md
           templates/
             apifox-sync-summary.md
             apifox-entry-catalog.md
@@ -175,7 +179,7 @@ ai-dev-protocol/
 
 ## Workflow Routing
 
-Router 先做路径分类。Quick Fix 按“确认小改动 -> 直接修改 -> 聚焦自检 -> 用户验证”执行；以下阶段只适用于 Full Development Flow：
+Router 先做路径分类。Discussion Only 只回答不产生工作流产物；Apifox Standalone 直接进入只读清单或独立授权的 CLI 同步；Quick Fix 按“确认小改动 -> 直接修改 -> 聚焦自检 -> 用户验证”执行。以下阶段只适用于 Full Development Flow：
 
 1. 需求进入：使用 `ai-requirement-intake` 判断需求是否清楚，是否是一个独立 requirement。
 2. 分支判断：使用 `ai-branch-workflow` 确认开发者分支、已有 AI 分支或阻断主干/环境分支。
@@ -188,7 +192,8 @@ Router 先做路径分类。Quick Fix 按“确认小改动 -> 直接修改 -> �
 9. 提交规则：使用 `ai-commit-rules` 检查中文 commit message，并按 `feat:` / `fix:` 分类。
 10. Merge-back：使用 `ai-merge-back` 汇报实现与验证结果，单独请求开发者授权；明确同意后才将 AI 分支 squash merge 回开发者分支。
 11. 最终交付：使用 `ai-handoff` 输出变更摘要、spec 文档和提交状态、本地 plan 执行状态、分支状态、merge-back 状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、风险说明和开发者接管说明。
-12. API / Apifox：使用 `ai-apifox-sync` 输出 Apifox sync summary；当用户需要录入 Apifox 时，抽取受影响接口、请求侧模型 JSON Schema（Path / Query / Headers / Cookies / Body）、响应模型 JSON Schema、枚举、错误码和权限清单。
+12. API / Apifox：使用内部 `ai-apifox-sync` phase 输出 sync summary。手工录入清单中，请求侧不建立数据模型，JSON Body 在接口内给 JSON Schema，Query 给 Apifox 批量编辑 CSV，Path / Headers / Cookies 给参数表；CLI 模式将 Query 等请求参数直接写入 endpoint payload。两种模式都重点完整抽取接口实际返回涉及的全部后端响应模型 JSON Schema，不输出独立请求/响应 JSON 示例。
+13. CLI 同步：用户指定 project、已有模块和 Apifox branch；AI 读取现有资源，分别规划 endpoint/schema 目录，动态校验 payload，展示 create/update/skip 计划并取得外部写入授权后，按“响应模型 -> 接口”执行并回读。默认不删除、不清理、不 blanket import、不合并 Apifox 分支。
 
 ### 状态恢复
 
@@ -200,7 +205,7 @@ AI Dev Protocol 必须能从中途继续，而不是假设所有任务都从零�
 - plan 已存在：继续使用 `docs/plans/` 下对应 spec 的未追踪本地 plan；如不存在，按当前 spec 创建。
 - 已实现未提交：先做范围检查和验证，再按提交规则处理。
 - 已提交未 merge-back：记录验证状态，按 `ai-merge-back` 汇报并等待开发者明确授权；未授权时停留在 AI 分支。
-- API 已变更但未整理：补充 Apifox sync summary；当用户需要录入 Apifox 时，输出可录入的接口清单和数据模型 JSON Schema。
+- API 已变更但未整理：补充 Apifox sync summary；需要手工录入时输出接口清单和完整响应模型 JSON Schema；需要 CLI 时恢复到“目标确认 / dry plan / 等待写入授权 / 已执行回读 / 已阻断”的真实状态。
 
 ### 对话式需求入口
 
@@ -283,6 +288,8 @@ Codex 读取 plugin 后，会加载 `plugin.json` 中声明的：
 4. AI 能稳定做到一需求一工作单元、一 spec 一范围。
 5. 开发者分支支持多个 AI 分支并行开发，并在开发者逐次明确授权后 squash merge 回开发者分支。
 6. 单一小型团队流程完整走通 spec 文档提交、本地 plan 未追踪、实现提交、验证审查、merge-back 授权、squash merge-back 和 handoff。
-7. 最终交付包含验证结果、spec 文档状态、plan/goals 完成情况、subagent / 独立审查或替代自检结果，API 变更包含 Apifox sync summary；需要录入 Apifox 时可输出接口清单和数据模型 JSON Schema 清单。
+7. 最终交付包含验证结果、spec 文档状态、plan/goals 完成情况、subagent / 独立审查或替代自检结果，API 变更包含 Apifox sync summary；需要录入 Apifox 时可输出接口清单和完整响应模型 JSON Schema，或在独立授权后同步到用户指定的已有模块和 AI 分支。
 8. 开发者在开发者分支上主导 review、联调、检查和后续合并。
 9. 用户接受的低风险小修改可不创建 workflow 产物，并明确由用户完成最终验证。
+10. Codex 和 Claude Code 只发现根 `SKILL.md`；所有内部阶段均为无 frontmatter 的 `PHASE.md`。
+11. Apifox CLI 缺失、未登录、模块归属无法核验、payload 校验失败或未取得写入授权时安全停止，不修改真实 Apifox 项目。

@@ -12,7 +12,7 @@ adapters/cursor/ai-dev-protocol.mdc -> .cursor/rules/ai-dev-protocol.mdc
 
 Cursor 在代码修改、需求实现、bug fix、提交或交付任务中应读取该 rule。
 
-建议同时在团队项目文档中引用本仓库，说明完整规则以 `skills/` 下各阶段 `SKILL.md` 为准，尤其是 `ai-branch-workflow`、`ai-merge-back` 和 `ai-handoff` 中的开发者分支确认、merge-back 和开发者接管规则。
+建议同时在团队项目文档中引用本仓库，说明完整规则以根 Router `SKILL.md` 和 `phases/` 下各阶段 `PHASE.md` 为准，尤其是开发者分支确认、merge-back、Apifox 外部写入授权和开发者接管规则。
 
 ## 验证
 
@@ -28,4 +28,4 @@ Cursor 在代码修改、需求实现、bug fix、提交或交付任务中应读
 - 说明 squash merge-back 准备状态和授权状态；未取得开发者明确同意时不修改开发者分支。
 - 最终交付验证结果和开发者接管事项。
 - 最终交付 spec 文档状态、本地 plan 状态和实现提交状态。
-- API 变更时输出 Apifox sync summary；用户需要录入 Apifox 时，输出接口清单和数据模型 JSON Schema 清单。
+- API 变更时输出 Apifox sync summary；用户可选择只读接口/完整响应模型清单，或指定已有模块后的 CLI 同步计划。实际 CLI 写入需要独立确认操作计划。

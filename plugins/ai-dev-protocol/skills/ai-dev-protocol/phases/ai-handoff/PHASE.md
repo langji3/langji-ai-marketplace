@@ -1,8 +1,3 @@
----
-name: ai-handoff
-description: Produce AI Dev Protocol final delivery handoffs. Use when finishing a development task to summarize changes, branch state, merge-back status, verification results, risks, developer takeover, follow-up suggestions, and Apifox sync status.
----
-
 # AI Handoff
 
 Use for final delivery.
@@ -23,9 +18,10 @@ Use for final delivery.
 - 风险说明
 - 后续建议
 - Apifox sync summary
-- 如果涉及 API 变更，交付末尾主动询问用户是否需要一份可直接给 Apifox 录入的「接口清单 + 数据模型 JSON Schema」
+- Apifox CLI 状态：未请求 / 只读计划 / 等待外部写入授权 / 已执行并回读 / 已拒绝 / 已阻断
+- 如果涉及 API 变更，交付末尾主动询问用户需要只读的「接口清单 + 响应数据模型 JSON Schema」，还是指定已有模块后的 CLI 同步计划
 
-Use `templates/handoff-summary.md` when structure helps.
+Use the [handoff summary template](templates/handoff-summary.md) when structure helps.
 
 When merge-back has not been explicitly approved, deliver from the AI branch, state that the developer branch is untouched, and ask the dedicated merge-back authorization question. Do not describe pending approval as a blocker or infer approval from spec confirmation.
 
@@ -40,14 +36,14 @@ If a check could not run, state:
 
 ## API
 
-If API behavior, request/response contracts, endpoints, status codes, examples, permissions, or schemas changed, use `ai-apifox-sync`.
+If API behavior, request/response contracts, endpoints, status codes, examples, permissions, or schemas changed, use [AI Apifox Sync](../ai-apifox-sync/PHASE.md).
 
-If the user asks to record the requirement/change in Apifox, use `ai-apifox-sync` to produce the Apifox entry catalog, including affected interfaces and data model JSON Schemas.
+If the user asks to record the requirement/change in Apifox, use [AI Apifox Sync](../ai-apifox-sync/PHASE.md) to produce a read-only catalog or run its gated CLI synchronization mode. Never collapse the CLI operation-plan authorization into repository merge-back authorization.
 
 Also include this prompt in the final handoff:
 
 ```text
-本次涉及 API 变更。是否需要我继续整理一份可直接给 Apifox 录入的「接口清单 + 数据模型 JSON Schema」？
+本次涉及 API 变更。是否需要我继续整理只读的「接口清单 + 响应数据模型 JSON Schema」，或为指定的已有 Apifox 模块生成 CLI 同步计划？
 ```
 
 If no API changed:

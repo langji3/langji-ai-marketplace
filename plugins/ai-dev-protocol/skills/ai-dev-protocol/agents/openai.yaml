@@ -1,6 +1,6 @@
 interface:
   display_name: "AI Dev Protocol"
-  short_description: "Route development work through the team protocol"
+  short_description: "Route development and Apifox sync safely"
   default_prompt: "Use $ai-dev-protocol to handle this development task."
 policy:
   allow_implicit_invocation: true

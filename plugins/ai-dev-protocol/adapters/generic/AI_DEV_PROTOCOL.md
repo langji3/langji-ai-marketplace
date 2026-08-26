@@ -2,7 +2,7 @@
 
 AI Dev Protocol is a team workflow protocol for AI-assisted software development.
 
-AI Dev Protocol 是一套面向小型团队的 AI 辅助开发流程规约：Router 先选择 Quick Fix Path 或 Full Development Flow；完整流程中，开发者分支作为需求汇总站，每个 AI 工作单元创建独立 `ai/...` 分支，完成后先汇报并取得开发者明确授权，再 squash merge 回开发者分支。
+AI Dev Protocol 是一套面向小型团队的 AI 辅助开发流程规约：Router 先选择 Discussion Only、Apifox Standalone、Quick Fix Path 或 Full Development Flow；完整流程中，开发者分支作为需求汇总站，每个 AI 工作单元创建独立 `ai/...` 分支，完成后先汇报并取得开发者明确授权，再 squash merge 回开发者分支。
 
 ## 使用场景
 
@@ -31,13 +31,13 @@ Codex 中本协议拆分为一个对外 Router skill 和多个打包在 Router �
 - `ai-commit-rules`：中文 `feat:` / `fix:` commit。
 - `ai-merge-back`：汇报 merge-back 准备状态，取得开发者明确授权后才 squash merge 回开发者分支。
 - `ai-handoff`：最终交付、spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证说明和开发者接管说明。
-- `ai-apifox-sync`：API 变更后的 Apifox sync summary；用户需要录入 Apifox 时，抽取受影响接口和数据模型 JSON Schema 清单。
+- `ai-apifox-sync`：API 变更后的 sync summary、手工录入清单，以及指定已有模块后的受控 CLI 同步；请求不建立复用模型，重点完整同步响应后端模型。
 
 其他 AI 工具可以按同样阶段执行。
 
 ## 核心规则
 
-1. `ai-dev-protocol` 先选择 Quick Fix Path 或 Full Development Flow；无法确定时走完整流程。
+1. `ai-dev-protocol` 先选择 Discussion Only、Apifox Standalone、Quick Fix Path 或 Full Development Flow；无法确定开发风险时走完整流程。
 2. 用户明确接受快速修改，且范围小、风险低、不涉及 API / 数据库 / 权限安全 / 依赖构建 / 跨模块行为 / 发布版本 / 分支集成时，可直接修改用户授权的当前分支，不创建 AI 分支、spec、plan、提交或 merge-back；AI 做聚焦自检，用户最终验证。
 3. 完整流程中的一个 AI 工作单元只处理一个明确需求。
 4. AI 在动手前必须先确认需求范围。
@@ -53,7 +53,8 @@ Codex 中本协议拆分为一个对外 Router skill 和多个打包在 Router �
 14. 不提交被 Git 追踪的 plan 文件或 `.superpowers/` 工作流产物，除非明确要求。
 15. AI 验证完成后单独请求 merge-back 授权；spec 确认不代表合回授权，未明确同意时不得修改开发者分支。
 16. 最终由开发者主导 review、联调、检查和后续合并。
-17. 如有 API 变更，最终交付必须包含 Apifox sync summary；用户需要录入 Apifox 时，输出接口清单和数据模型 JSON Schema 清单。
+17. 如有 API 变更，最终交付必须包含 Apifox sync summary；用户可选择只读接口/完整响应模型 JSON Schema 清单，或指定已有模块后的 CLI 同步计划。
+18. Apifox CLI 写入前必须核验当前 CLI、project、已有模块、Apifox branch、接口/响应模型双目录和动态 payload schema，展示幂等操作计划并取得独立授权；默认不删除、不 blanket import、不合并 Apifox 分支，写入后回读。
 
 ## 完整流程
 
@@ -68,7 +69,7 @@ Codex 中本协议拆分为一个对外 Router skill 和多个打包在 Router �
 7. 验证：根据项目情况运行测试、构建、静态检查，不能运行时要说明原因。
 8. 提交规则：commit message 使用中文，并按 `feat:` / `fix:` 分类。
 9. Merge-back：先汇报实现、验证、目标分支和拟用提交信息，明确询问并取得开发者授权后才 squash merge。
-10. 最终交付：输出变更摘要、分支状态、merge-back 状态、spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、风险说明和开发者接管说明。若有 API 变更，附 Apifox sync summary；用户需要录入 Apifox 时，输出接口清单和数据模型 JSON Schema 清单。
+10. 最终交付：输出变更摘要、分支状态、merge-back 状态、spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证结果、风险说明和开发者接管说明。若有 API 变更，附 Apifox sync summary；用户可选择只读接口/完整响应模型 JSON Schema 清单，或指定已有模块后的 CLI 同步计划。
 
 自然语言的模块设计讨论如果可能进入代码实现，也从需求进入开始执行。用户确认开发者分支只确认第 2 步，下一步仍是中文 spec，不得直接写代码。
 

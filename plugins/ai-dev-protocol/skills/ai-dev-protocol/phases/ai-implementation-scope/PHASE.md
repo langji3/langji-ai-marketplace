@@ -1,8 +1,3 @@
----
-name: ai-implementation-scope
-description: Control implementation scope for AI Dev Protocol work. Use while editing code after the Chinese spec is confirmed to keep changes limited to the requirement and prevent unrelated refactors, formatting sweeps, dependency upgrades, build-tool changes, temporary artifacts, or workflow files.
----
-
 # AI Implementation Scope
 
 Use during code changes after the Chinese spec is confirmed.
@@ -20,13 +15,13 @@ Before editing files, verify:
 - The requested edit still matches the confirmed spec.
 - The affected files or areas are covered by the confirmed spec, or the scope change has been stated and reconfirmed.
 
-If any item is missing, stop and return to `ai-requirement-intake`, `ai-branch-workflow`, or `ai-spec-writing` as appropriate.
+If any item is missing, stop and return to [AI Requirement Intake](../ai-requirement-intake/PHASE.md), [AI Branch Workflow](../ai-branch-workflow/PHASE.md), or [AI Spec Writing](../ai-spec-writing/PHASE.md) as appropriate.
 
 Before editing, briefly record what will change and why it is inside scope.
 
 ## Implementation Plan
 
-- Before editing, create a local plan file with concrete goals or steps that can be completed and verified.
+- Before editing, create a local plan file with concrete goals or steps that can be completed and verified. Use the [local plan template](templates/local-plan.md) when structure helps.
 - Put every local plan under `docs/plans/{yyyyMMdd}-{short-desc}-plan.md`, using the corresponding `docs/specs/{yyyyMMdd}-{short-desc}.md` basename.
 - The `docs/plans/` path must be ignored by Git.
 - Confirm the local plan is not tracked by Git before editing implementation files.
@@ -78,4 +73,4 @@ Record:
 - 验证了什么
 - 未覆盖或需开发者复核的点
 
-Next: `ai-commit-rules` if committing, then `ai-handoff`.
+Next: [AI Commit Rules](../ai-commit-rules/PHASE.md) if committing, then [AI Handoff](../ai-handoff/PHASE.md).

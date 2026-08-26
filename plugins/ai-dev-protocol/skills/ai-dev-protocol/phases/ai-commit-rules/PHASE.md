@@ -1,8 +1,3 @@
----
-name: ai-commit-rules
-description: Apply AI Dev Protocol commit rules. Use before preparing, reviewing, squashing, or merging commits on ai/... branches to ensure Chinese commit messages, correct feat:/fix: prefixes, scoped changes, and no workflow artifacts.
----
-
 # AI Commit Rules
 
 Use before committing, reviewing commits, or preparing squash merge-back.

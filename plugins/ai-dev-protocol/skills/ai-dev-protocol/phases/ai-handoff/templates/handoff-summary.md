@@ -69,8 +69,15 @@
 
 无 API 变更，无需同步。
 
+- 模式：无变更 / Sync Summary / Entry Catalog / CLI Sync
+- CLI 外部写入：未请求 / 等待操作计划授权 / 已授权并执行 / 已拒绝 / 已阻断
+- Project / 已有模块 / Apifox Branch：
+- 目录规划：
+- 新建 / 更新 / 跳过 / 阻断：
+- 回读验证：
+
 如本次涉及 API 变更，在交付末尾补充：
 
 ```text
-本次涉及 API 变更。是否需要我继续整理一份可直接给 Apifox 录入的「接口清单 + 数据模型 JSON Schema」？
+本次涉及 API 变更。是否需要我继续整理只读的「接口清单 + 响应数据模型 JSON Schema」，或为指定的已有 Apifox 模块生成 CLI 同步计划？
 ```

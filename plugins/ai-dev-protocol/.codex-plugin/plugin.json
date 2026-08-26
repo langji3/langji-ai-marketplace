@@ -1,7 +1,7 @@
 {
   "name": "ai-dev-protocol",
-  "version": "2.0.0",
-  "description": "Lightweight team workflow plugin for AI-assisted software development: requirement intake, developer-branch workflow, specs, scope control, merge-back, commits, handoff, and Apifox API/catalog sync.",
+  "version": "2.1.0",
+  "description": "Lightweight team workflow plugin for AI-assisted development and gated Apifox API/catalog/CLI synchronization.",
   "author": {
     "name": "Langji"
   },
@@ -17,7 +17,7 @@
   "interface": {
     "displayName": "AI Dev Protocol",
     "shortDescription": "Router-first team workflow for AI-assisted development",
-    "longDescription": "Use AI Dev Protocol to guide coding agents through a lightweight team workflow for requirement intake, developer-branch workflow, Chinese specs, scope control, merge-back, commits, handoff, Apifox sync summaries, and Apifox-ready interface/model catalogs. It borrows useful skill-system practices without adopting heavy hidden workflow state.",
+    "longDescription": "Use AI Dev Protocol to guide coding agents through a lightweight team workflow for requirement intake, developer-branch workflow, Chinese specs, scope control, merge-back, commits, handoff, Apifox sync summaries, read-only interface/response-model catalogs, and separately authorized Apifox CLI synchronization into existing modules. It borrows useful skill-system practices without adopting heavy hidden workflow state.",
     "developerName": "Langji",
     "category": "Coding",
     "capabilities": [
@@ -28,7 +28,8 @@
     "defaultPrompt": [
       "Use AI Dev Protocol for this feature.",
       "Help me clarify and implement one requirement.",
-      "Prepare a verified handoff and request merge-back approval for this AI branch."
+      "Prepare a verified handoff and request merge-back approval for this AI branch.",
+      "Plan a safe Apifox CLI synchronization for an existing module."
     ]
   }
 }

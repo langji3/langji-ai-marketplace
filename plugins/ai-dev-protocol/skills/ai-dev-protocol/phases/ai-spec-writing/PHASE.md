@@ -1,8 +1,3 @@
----
-name: ai-spec-writing
-description: Write and confirm Chinese repository specs for AI Dev Protocol work. Use before implementation after requirement and developer branch source are clear to document goal, branch source, scope, non-goals, affected areas, approach, verification, and risks.
----
-
 # AI Spec Writing
 
 Use after requirement intake and developer-branch selection, before implementation.
@@ -11,7 +6,7 @@ Use after requirement intake and developer-branch selection, before implementati
 
 - Write the spec in Chinese.
 - Preserve English for code identifiers, API paths, table names, config keys, commands, and file paths.
-- Use `templates/requirement-spec.md` when structure helps.
+- Use the [requirement spec template](templates/requirement-spec.md) when structure helps.
 - Wait for user confirmation before implementation.
 - Write the spec after the developer branch source is known, including after the user confirms an ambiguous branch as the developer aggregation branch.
 - Treat developer-branch confirmation as input to the spec, not as spec confirmation.
@@ -39,4 +34,4 @@ If the user changes scope, update the spec or reconfirm before editing.
 If no Chinese spec has been confirmed in the current workflow, do not call implementation complete and do not edit files.
 If the spec has not been committed under `docs/specs/`, do not start implementation.
 
-Next: `ai-implementation-scope`.
+Next: [AI Implementation Scope](../ai-implementation-scope/PHASE.md).
