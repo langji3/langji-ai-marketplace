@@ -43,22 +43,13 @@ Endpoint and schema folders are separate trees. Use folder-list output to resolv
 
 ## Module boundary
 
-Apifox modules own their own APIs, components, and OpenAPI document, but public CLI documentation currently exposes project, branch, endpoint, schema, and typed folder commands without a documented module-management command. Treat the user-selected existing module as a required business boundary, not as a guessed CLI flag.
+Treat the user-selected existing module as a required business boundary, not a guessed CLI flag. Check installed-version capabilities; static examples do not establish support for module assignment.
 
 Before mutation, prove from current CLI output how an endpoint or schema payload is assigned to that module. If no reliable module assignment is exposed, stop and return the planned logical directories and resources for manual review.
 
-## Safe mutation sequence
+## Execution owner
 
-1. Confirm `apifox whoami` returns an authenticated identity; otherwise stop and provide login guidance without requesting a token in chat.
-2. Resolve project, existing module, AI branch, identities, and current folders.
-3. Fetch runtime payload schemas.
-4. Build payloads in an OS temporary directory or another confirmed ignored location.
-5. Validate every payload.
-6. Present the exact create/update/skip plan and obtain explicit approval.
-7. Create or update response schemas in dependency order.
-8. Create or update endpoints after referenced schema IDs are known.
-9. Read back each changed resource from the same project and branch.
-10. Report differences and leave branch review/merge to the user.
+Use [CLI synchronization and recovery](cli-sync.md) for authorization, dependency order, execution records, unknown results, bounded retries and read-back. Build payloads in an OS temporary or confirmed ignored directory.
 
 Never print or persist an Apifox API token. Never delete resources, clean a module, overwrite unrelated fields, merge an Apifox branch, or apply an import conflict policy without separate explicit authorization.
 

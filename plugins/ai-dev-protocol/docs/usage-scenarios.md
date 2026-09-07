@@ -182,3 +182,5 @@ When implementation is ready, the dedicated question should name both branches:
 ```
 
 Spec confirmation, implementation approval, or a vague earlier `ok` must not be reused as merge-back authorization.
+
+A contextual “OK” or “确认” directly answering the concrete merge proposal is sufficient; do not ask for special words. Name the verified source and target commits, recheck both heads and worktree state immediately before integration, and reverify the combined tree if the target advances. A changed spec requires confirmation only for material scope changes, not for copying an approved proposal into a file.

@@ -1,4 +1,8 @@
 plugins/*/.git/
 plugins/*/.idea/
 tmp/
+docs/plans/
+__pycache__/
+*.py[cod]
+dist/
 

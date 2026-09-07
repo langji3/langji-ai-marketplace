@@ -62,7 +62,8 @@ AI Dev Protocol owns routing and workflow gates. Optional tools and borrowed met
 - Proportional process: user-approved low-risk small edits may use the Quick Fix Path without branches, specs, plans, commits, or merge-back; final verification remains with the user.
 - Conservative fallback: API, schema, database, auth/security, dependency/build, cross-module, release, and branch-integration changes always use the full flow; uncertainty also selects the full flow.
 - Visible gates: branch source, spec confirmation, implementation start, commit, and merge-back should be explicit; merge-back requires its own developer authorization after implementation and verification reporting.
-- Recoverable state: the plugin should inspect current branch, Git status, spec, plan, and commits before deciding the next step.
+- Recoverable state: inspect the source and target revisions, worktree identity, spec blob, approval evidence, and verified revision before deciding the next step. A plan checkbox alone proves neither approval nor verification.
+- Contextual authorization: confirmation of a concrete proposal applies to its unchanged scope, including when that proposal is saved as a spec. Integration and external writes retain their separately scoped authorization.
 - Minimal artifacts: committed files should be specs, code, tests, docs, and intentional templates; local plans stay ignored.
 - Unified paths: committed specs live in `docs/specs/`; local execution plans live only in ignored `docs/plans/` and use the corresponding spec basename.
 - Team handoff first: final output should make developer review, self-test, integration, PR, merge, and Apifox sync easier.

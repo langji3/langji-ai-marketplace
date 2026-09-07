@@ -1,65 +1,37 @@
-# Marketplace Update Policy
+# 发布与恢复策略
 
-## Purpose
+源仓库负责规则、模板、adapter 和版本；marketplace 只分发提交快照。禁止直接在 plugins/ai-dev-protocol/ 改规则后把它当作正式源版本。
 
-This repository distributes validated plugin snapshots. It does not author workflow rules.
+## 发布内容与身份
 
-## Snapshot Rules
+允许 .codex-plugin/、.claude-plugin/、skills/、adapters/、docs/（排除 docs/plans/）、README.md、CHANGELOG.md，以及安装后使用的 scripts/validate_plugin.py 和 scripts/build_bundle.py。其余维护脚本、tests、evals、CI、.git、dist、未追踪文件不进入快照；目录链接及非普通 Git 文件拒绝发布。
 
-- Sync from the plugin source repository only after the plugin has been validated.
-- Keep only the distribution snapshot in `plugins/<plugin-name>/`.
-- Do not copy `.git/`, `.idea/`, `dist/`, or source-repository-only marketplace/build scripts.
-- Preserve the upstream plugin content without editing workflow behavior in the marketplace repository.
+catalog/releases/ai-dev-protocol.json 记录完整源提交、源仓库、版本及所有发布文件摘要。sha256-text-lf-utf8-v1 将已知文本格式解码为 UTF-8、去 BOM 并把 CRLF 转为 LF 后计算 SHA-256；二进制按原字节计算。因此换行差异不构成语义发布差异。此记录保证本地内容一致性，不是远端仓库身份的密码学证明；同步同时核对实际 Git origin 与插件元数据来源。
 
-## AI Dev Protocol Snapshot Contents
+## 操作顺序
 
-The `ai-dev-protocol` snapshot should include:
+1. 在 source 完成规则修改、自检、行为回归及版本和 CHANGELOG 更新并提交。
+2. 确认源提交 SHA。本地来源要求 Git 仓库根目录且已追踪文件无未提交变化；导出指定提交，不复制工作目录。
+3. 运行 README 中含 --expected-commit 的 --dry-run，然后正式同步。所有目标必须在 marketplace 范围内，源、缓存、快照不得重叠。
+4. 同步自动维护 catalog 与 Claude 索引版本、描述和来源；Codex 入口保留固定本地路径与安装策略并参与检查。
+5. 运行 validator、tests，审阅快照、索引、来源记录和 Git diff。经授权合回/推送后用户才能从远端获取新版本。
 
-- `.codex-plugin/`
-- `.claude-plugin/`
-- `skills/`
-- `adapters/`
-- `docs/`
-- `README.md`
-- `CHANGELOG.md`
+远端模式默认为 https://github.com/langji3/ai-dev-protocol.git 的 main，缓存为 tmp/source-cache/ai-dev-protocol.git。已有普通工作目录缓存不可复用；选择新 bare cache。CachePath 必须位于本仓库 tmp/ 下；不会 reset 或清理已有源码工作目录。同一版本只允许规范化内容相同的重复同步。
 
-This is a validated release snapshot, not a full mirror of the source repository.
+## 失败和中断
 
-## Update Workflow
+同步使用 tmp/release-sync.lock 互斥，临时导出位于 tmp/release-transaction/。替换前保存旧插件、旧索引和恢复日志。普通复制/替换/索引异常恢复旧快照及索引；进程被终止时日志保留，后续同步和独立校验会拒绝继续。
 
-1. Update the desired plugin revision in the source repository.
-2. Bump the plugin version when the distributed plugin behavior changes.
-3. Validate the plugin in the source repository.
-4. Run `scripts/sync-ai-dev-protocol.ps1`.
-5. Confirm `.codex-plugin/plugin.json` exists in the synced snapshot.
-6. Confirm `skills/` exists in the synced snapshot.
-7. Review `catalog/plugins.json` and update version metadata if needed.
-8. Share or publish the marketplace revision.
+确认原同步进程已停止后运行：
 
-## Sync Script Behavior
+~~~shell
+python scripts/sync_plugin.py --recover
+~~~
 
-- By default, the script pulls from `https://github.com/langji3/ai-dev-protocol.git`.
-- By default, it fetches `main`.
-- For local verification, pass `-SourcePath ..\ai-dev-protocol`.
-- The remote checkout cache is stored under `tmp/source-cache/ai-dev-protocol/`.
+PowerShell 对应 -Recover。活进程持有的锁不会被抢占。恢复前会检查当前快照/索引是否仍为事务中已知状态，以及备份是否完整；中断后的人工修改或损坏备份会阻断自动覆盖。此时先保留事务目录、修改文件和 Git diff，再人工决定保留版本。恢复完成后检查 Git 状态，再重新 dry-run 和同步。不要把恢复目录当普通缓存直接删除。
 
-## Consumer Update Notes
+跨文件替换无法提供断电时的瞬时原子可见性。恢复成功只表示回到旧快照，不表示新版本已经发布；旧快照即使通过校验，也应重新检查拟发布提交。
 
-### Codex
+## 消费端更新
 
-- Codex reads this repository's marketplace snapshot through `.agents/plugins/marketplace.json`.
-- Once the repository is updated, Codex consumes the new snapshot from `plugins/ai-dev-protocol/`.
-- If a user does not immediately see the new version, they should refresh or reinstall the plugin from the marketplace.
-
-### Claude Code
-
-- Claude Code reads this repository's marketplace entry through `.claude-plugin/marketplace.json`, then installs plugins into its local cache.
-- Users should refresh the marketplace, update the plugin, and reload plugins after a marketplace release:
-
-```shell
-/plugin marketplace update langji-ai-marketplace
-/plugin update ai-dev-protocol@langji-ai-marketplace
-/reload-plugins
-```
-
-- Claude Code relies on plugin version resolution. If the plugin snapshot changes but `.claude-plugin/plugin.json` keeps the same `version`, users may not get the new release as expected.
+Codex 用户刷新 marketplace 并更新/重新安装插件，开始新任务，核对实际版本和唯一 Router。Claude Code 用户刷新 marketplace、更新 plugin 并重载/开始新会话。更新仓库不等于所有已安装缓存自动更新；手动安装按完整 vendor 目录升级，不覆盖用户自己的入口文件。详见各安装指南。

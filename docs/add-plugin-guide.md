@@ -13,6 +13,7 @@ Add a new distributable plugin to this marketplace without coupling the reposito
 5. Add a new plugin entry to `.claude-plugin/marketplace.json`.
 6. Document installation notes for each supported tool if they differ from existing plugins.
 7. Document how the plugin snapshot should be updated.
+8. Add plugin-specific identity, version, provenance, and recovery checks. The current sync/validation scripts maintain only ai-dev-protocol; adding an index entry does not automatically extend their coverage. Generalizing these scripts is a separate change.
 
 ## Principles
 

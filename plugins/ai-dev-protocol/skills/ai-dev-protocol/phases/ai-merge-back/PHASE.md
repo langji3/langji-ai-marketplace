@@ -17,20 +17,20 @@ Use after verified work is complete on an `ai/...` branch. Treat merge-back as a
 
 Before any command that switches to or modifies the developer branch, the developer must explicitly approve this specific merge-back after receiving the completion and verification summary.
 
-Spec confirmation, implementation approval, commit approval, earlier workflow consent, and task-completion instructions do not authorize merge-back. A vague reply such as `ok` or `继续` is not enough; require a clear merge-back instruction such as `同意合回`、`可以合回` or `合并吧`.
+Spec confirmation and implementation approval do not authorize merge-back. Apply [authorization rules](../../references/authorization.md): an affirmative reply such as `可以` or `OK` to this exact proposal is valid. Ask only when its referent is ambiguous; do not require special wording.
 
 ## Do
 
 1. Confirm AI branch and developer branch without switching branches.
-2. Confirm spec, local plan, implementation commits, working tree, verification, and known risks.
+2. Confirm spec, local plan, implementation commits, working tree, verification and risks. Apply [recovery rules](../../references/recovery.md) if the source/target advanced; verify the intended combined tree in isolation before requesting approval.
 3. Report merge readiness, the target developer branch, the commits to merge, and the proposed Chinese squash commit message.
 4. Ask a dedicated authorization question such as: `实现和验证已完成，是否同意将 ai/... squash merge 回 developer/...？`
-5. Stop and wait. Do not switch to or modify the developer branch before an explicit affirmative answer such as `同意合回`、`可以合回` or `合并吧`.
-6. After approval, re-check branch and working-tree state.
-7. Switch to the approved developer branch.
+5. Wait for an explicit affirmative answer to this proposal. Reuse existing approval for the unchanged proposal; do not modify the developer branch without it.
+6. Re-check both commit IDs and working-tree state. Changed heads require a recomputed proposal and relevant checks; changed merge contents/target require renewed approval.
+7. Use the approved developer branch's idle, clean worktree, or switch only when another task is not using it.
 8. Squash merge the approved `ai/...` branch.
 9. Create one Chinese `feat:` / `fix:` commit.
-10. Run or recommend post-merge verification.
+10. Run relevant verification against the resulting developer tree. If unavailable, report the unverified result. Failed checks stop downstream integration without automatic reset/revert.
 
 ## No Approval Or Rejection
 

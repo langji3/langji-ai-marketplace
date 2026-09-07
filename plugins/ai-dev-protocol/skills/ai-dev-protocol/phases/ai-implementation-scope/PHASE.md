@@ -13,6 +13,7 @@ Before editing files, verify:
 - The confirmed spec is committed under `docs/specs/` on the `ai/...` branch.
 - A local plan exists under `docs/plans/` and is ignored by Git before implementation starts.
 - The requested edit still matches the confirmed spec.
+- On resumption apply [recovery rules](../../references/recovery.md), comparing reviewed spec and verified revision with current state.
 - The affected files or areas are covered by the confirmed spec, or the scope change has been stated and reconfirmed.
 
 If any item is missing, stop and return to [AI Requirement Intake](../ai-requirement-intake/PHASE.md), [AI Branch Workflow](../ai-branch-workflow/PHASE.md), or [AI Spec Writing](../ai-spec-writing/PHASE.md) as appropriate.
@@ -24,6 +25,7 @@ Before editing, briefly record what will change and why it is inside scope.
 - Before editing, create a local plan file with concrete goals or steps that can be completed and verified. Use the [local plan template](templates/local-plan.md) when structure helps.
 - Put every local plan under `docs/plans/{yyyyMMdd}-{short-desc}-plan.md`, using the corresponding `docs/specs/{yyyyMMdd}-{short-desc}.md` basename.
 - The `docs/plans/` path must be ignored by Git.
+- If missing, establish the ignore rule as necessary workflow setup within the approved task (normally add `docs/plans/` to `.gitignore`) and verify with `git check-ignore` and `git ls-files`. Do not untrack existing user-owned files without approval.
 - Confirm the local plan is not tracked by Git before editing implementation files.
 - For substantial tasks, include goals for implementation, verification, independent review, and handoff.
 - Keep the plan as a local execution aid; do not commit it.
@@ -46,6 +48,7 @@ Before editing, briefly record what will change and why it is inside scope.
 - Follow existing project patterns, helpers, conventions, and tests.
 - Run project-appropriate tests, build, static checks, or manual verification.
 - Record checks that cannot run and why.
+- Record the revision/worktree contents each check covered; invalidate affected results after relevant edits.
 - Keep a short scope record as files are changed: changed area, reason it belongs to the requirement, any scope change from the confirmed spec, and plan/subagent review status when applicable.
 
 ## Do Not

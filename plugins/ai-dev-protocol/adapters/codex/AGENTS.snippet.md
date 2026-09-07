@@ -1,37 +1,9 @@
-# AI Dev Protocol
+<!-- ai-dev-protocol:begin -->
+## AI Dev Protocol
 
-本项目使用 AI Dev Protocol 作为 AI 辅助开发流程规约。
+原生 plugin 已安装时使用唯一入口 $ai-dev-protocol，由 Router 按需读取阶段。不要同时安装另一个同名 skill。
 
-Full Development Flow 的开发者分支工作流：AI 在实现前先确认当前开发者分支或已有 `ai/...` 分支。
+手工完整接入时，从项目根目录读取 vendor/ai-dev-protocol/skills/ai-dev-protocol/SKILL.md，再沿相对链接读取所选阶段。完整资源包必须与本段一起安装。项目业务与架构规则、用户指令和宿主约束优先。
 
-- 开发者分支：例如 `developer/<name>`、`dev/<name>`、`<name>/dev`，或用户明确指定的团队开发者汇总分支。每个明确需求从该分支创建一个 `ai/...` 分支。
-- AI 分支：AI 先提交 `docs/specs/*.md`，再在 `docs/plans/` 创建对应 spec 的未追踪本地 plan；完成实现和验证后先汇报，取得开发者对本次 merge-back 的明确授权后才能 squash merge 回开发者分支。
-- 分支含义不明确时，AI 必须先询问当前分支是否作为开发者分支使用。
-
-完整流程不应直接在主干或环境分支上实现；用户明确授权的 Quick Fix Path 按下方轻量规则处理。
-
-Codex 必须先由 `ai-dev-protocol` Router 选择 Discussion Only、Apifox Standalone、Quick Fix Path 或 Full Development Flow。只有根 `SKILL.md` 是公开 skill；其他 `PHASE.md` 是内部阶段资源，不要求用户选择：
-
-- `ai-dev-protocol`：总入口和流程路由。
-- `ai-requirement-intake`：需求澄清、一需求一工作单元。
-- `ai-branch-workflow`：确认开发者分支、已有 AI 分支或停止在主干/环境分支。
-- `ai-spec-writing`：中文 spec 和实现前确认；spec 写入并提交到 `docs/specs/*.md`。
-- `ai-implementation-scope`：范围控制、本地临时 plan、plan/goals 拆分、subagent / 独立审查，禁止无关改动。
-- `ai-commit-rules`：中文 `feat:` / `fix:` commit。
-- `ai-merge-back`：汇报准备状态并请求独立授权，明确同意后才 squash merge 回开发者分支。
-- `ai-handoff`：最终交付、spec 文档路径、spec 提交状态、本地 plan Git 状态、实现提交状态、实现范围记录、范围变化说明、plan/goals 完成情况、subagent / 独立审查情况、验证说明和开发者接管说明。
-- `ai-apifox-sync`：API 变更后的 sync summary、手工录入清单，以及指定已有模块后的受控 CLI 同步。请求不建立复用模型，重点完整同步响应后端模型。
-
-这些阶段名称是主 Router 的内部模块，不作为独立 plugin skills 暴露。
-
-用户明确接受快速修改，且任务范围小、风险低，不涉及 API / 数据库 / 权限安全 / 依赖构建 / 跨模块行为 / 发布版本 / 分支集成时，可在用户授权的当前分支直接修改，不创建 AI 分支、spec、plan、提交或 merge-back；Codex 做聚焦自检，并明确由用户最终验证。范围扩大、命中风险项或无法确定时切换到完整流程。
-
-自然语言的模块设计讨论如果可能进入代码实现，且不符合 Quick Fix 条件，必须从 `ai-requirement-intake` 开始。用户确认开发者分支只表示分支来源已确认，不表示允许实现；下一步必须进入 `ai-spec-writing`。先提交 `docs/specs/*.md`，等待中文 spec 确认后，再在 `docs/plans/` 创建对应 spec 的未追踪本地 plan，之后才能改实现文件。
-
-用户确认 spec 只授权进入实现，不授权 merge-back。实现、验证和 AI 分支提交完成后，Codex 必须汇报目标开发者分支和拟合回内容，单独询问是否同意；未明确同意时不得切换、提交、合并、cherry-pick、reset 或 restore 开发者分支。
-
-Apifox CLI 外部写入也有独立授权门：先核验当前 CLI、project、已有模块和 Apifox branch，分别规划接口/响应模型目录，读取现状并动态校验 payload，再展示 create/update/skip 计划。用户明确确认该计划后才能写入；默认不删除、不 blanket import、不合并 Apifox 分支，写入后必须回读。
-
-进入完整流程实现后，Codex 应按本地 plan 拆分 plan/goals 并持续更新状态。复杂任务或代码变更优先使用 subagent / 多 AI 做独立审查。若当前环境不支持 subagent，交付时说明原因并记录替代自检。可以借鉴 Superpowers 中轻量有效的上下文控制、goal 拆分、范围守卫和独立审查方法，但不得提交被 Git 追踪的 plan 文件或创建 `.superpowers/` 产物，除非用户明确要求。
-
-完整规则以 `skills/ai-dev-protocol/SKILL.md` 及其 `phases/` 内部阶段规则为准。
+资源缺失时说明当前仅有接入摘要，按安装说明补齐；不要声称已加载完整协议。普通问答保持普通问答，由 Router 选择开发与 Apifox 路径。
+<!-- ai-dev-protocol:end -->

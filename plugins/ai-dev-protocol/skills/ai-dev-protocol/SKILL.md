@@ -1,146 +1,55 @@
 ---
 name: ai-dev-protocol
-description: Route AI-assisted development tasks through AI Dev Protocol. Use for coding tasks that need quick low-risk edit classification, requirement clarification, developer-branch workflow selection, Chinese specs, scoped implementation, commits, merge-back, verified handoff, Apifox API catalogs, or gated Apifox CLI synchronization.
+description: Guide team coding work through requirement clarification, safe branches, Chinese specs, scoped implementation and verified handoff. Also prepare Apifox API catalogs or separately authorized CLI synchronization.
 ---
 
 # AI Dev Protocol
 
-Public router skill. Users normally invoke only this skill. Treat bundled phase files under `phases/` as internal modules, not public skills: after selecting a phase, follow its Markdown link and read the `PHASE.md` completely before acting.
+One public Router for a small-team workflow. Internal PHASE.md files are bundled resources, not discoverable skills. Follow the selected phase link and read it completely before acting. Load only resources needed now.
 
-AI Dev Protocol is a lightweight team workflow plugin. It owns requirement clarity, branch gates, specs, scope control, commits, handoff, and API sync. It may borrow useful Superpowers-style working methods, but it must not inherit heavy hidden state, broad agent role systems, or `.superpowers/` artifacts.
+## Choose a route
 
-## Routing
+| Request | Route |
+| --- | --- |
+| Analysis, explanation, design discussion, review or proposal without mutation | Discussion Only: answer directly; create no Git/spec/plan/Apifox artifacts. |
+| Apifox summary, catalog, plan or requested write without repository implementation | Apifox Standalone: select a mode in [AI Apifox Sync](phases/ai-apifox-sync/PHASE.md). |
+| User requests or accepts a narrow, understood, low-risk edit satisfying every condition below | Quick Fix Path. |
+| Feature, nontrivial/risky change or uncertain development classification | Full Development Flow. |
 
-Classify the request before starting workflow artifacts:
-
-- Use Discussion Only when the user explicitly wants analysis, explanation, design discussion, review, or a proposal without repository or Apifox mutation.
-- Use the Apifox Standalone Route when the requested outcome is an Apifox summary, catalog, synchronization plan, or CLI synchronization and no repository implementation is requested.
-- Use the Quick Fix Path only when every quick-fix condition below is satisfied.
-- Use the Full Development Flow for features, non-trivial fixes, risky changes, or any uncertain classification.
-- Read only the internal phase modules needed for the selected path. Do not ask users to orchestrate phase modules themselves.
-
-## Standalone Routes
-
-### Discussion Only
-
-Answer the question or produce the requested design/review. Do not create a Git branch, repository spec, local plan, implementation commit, merge-back artifact, Apifox branch, or external write. If the user later asks to implement or synchronize, reclassify from the new request.
-
-### Apifox Standalone
-
-Read [AI Apifox Sync](phases/ai-apifox-sync/PHASE.md) and choose one mode:
-
-- `Sync Summary` or `Apifox Entry Catalog`: read-only; do not create development workflow artifacts.
-- `Apifox CLI Sync`: external mutation path; resolve the exact project, existing module, and Apifox branch, prepare and validate a dry operation plan, then obtain explicit authorization immediately before the CLI write.
-
-Repository spec confirmation, implementation approval, or a request for an Apifox document does not authorize external Apifox mutation. If both repository code and Apifox must change, complete repository implementation and verification first, then enter the same separate CLI write gate.
-
-## Full Development Flow
-
-1. [AI Requirement Intake](phases/ai-requirement-intake/PHASE.md): clarify one independent requirement.
-2. [AI Branch Workflow](phases/ai-branch-workflow/PHASE.md): detect developer branch, existing AI branch, or blocked branch.
-3. [AI Spec Writing](phases/ai-spec-writing/PHASE.md): write and confirm Chinese spec.
-4. [AI Implementation Scope](phases/ai-implementation-scope/PHASE.md): implement within confirmed scope.
-5. [AI Commit Rules](phases/ai-commit-rules/PHASE.md): prepare/review Chinese `feat:` / `fix:` commits.
-6. [AI Merge Back](phases/ai-merge-back/PHASE.md): report merge readiness, request explicit developer approval, then squash merge `ai/...` back only after approval.
-7. [AI Handoff](phases/ai-handoff/PHASE.md): final delivery.
-8. [AI Apifox Sync](phases/ai-apifox-sync/PHASE.md): API changes, read-only Apifox artifacts, and separately authorized CLI synchronization.
+A discussion that may later become code stays read-only until implementation is requested. API code changes use Full Development Flow before optional external synchronization.
 
 ## Quick Fix Path
 
-Use this path for a small, low-risk edit when the user explicitly asks for or accepts a quick modification.
-
 All conditions must hold:
+- Scope is narrow and understood, normally one or a few files.
+- No API/schema, database migration, auth/security, dependency/build/CI, release/version, destructive Git action, cross-module behavior or branch integration change.
+- The current branch is intended and authorized for the edit. Direct edits on trunk/environment branches require explicit user authorization.
+- A focused AI self-check and subsequent user verification are reasonable.
 
-- The scope is narrow and well understood, normally limited to one or a few files.
-- The change does not alter API contracts or schemas, database migrations, authentication, authorization, security behavior, dependencies, build/CI configuration, release/versioning, destructive Git operations, cross-module behavior, or branch integration.
-- The current branch is safe and intended for the direct edit. Never infer permission to edit a trunk or environment branch; direct work there requires explicit user authorization.
-- Verification can reasonably be owned by the user after a focused AI self-check.
+Inspect context, make the edit, perform a practical self-check and report changed behavior, checks and remaining user verification. Do not create an AI branch, spec, plan, commit or merge-back unless requested. Reclassify remaining work if scope or risk grows.
 
-On the Quick Fix Path:
+## Full Development Flow
 
-1. Confirm the exact small change and inspect the affected context.
-2. Edit directly on the current authorized branch with tight scope.
-3. Run a focused self-check when practical; do not claim user verification.
-4. Do not create an `ai/...` branch, committed spec, `docs/plans/` file, implementation commit, or merge-back unless the user explicitly requests one.
-5. Hand off the changed files and behavior, checks performed, residual risk, and a clear statement that final verification belongs to the user.
+Use the first incomplete stage supported by current evidence:
+1. [Requirement intake](phases/ai-requirement-intake/PHASE.md): one requirement, scope and acceptance.
+2. [Branch workflow](phases/ai-branch-workflow/PHASE.md): source developer branch and isolated AI work.
+3. [Spec writing](phases/ai-spec-writing/PHASE.md): Chinese repository spec, committed and confirmed before implementation.
+4. [Implementation scope](phases/ai-implementation-scope/PHASE.md): ignored local plan, scoped work, verification and independent review.
+5. [Commit rules](phases/ai-commit-rules/PHASE.md): review and create requested Chinese commits.
+6. [Merge-back](phases/ai-merge-back/PHASE.md): readiness, specific approval, integration and verification.
+7. [Handoff](phases/ai-handoff/PHASE.md): evidence and developer takeover; delivery can happen on the AI branch while merge-back is pending.
+8. For changed APIs, [AI Apifox Sync](phases/ai-apifox-sync/PHASE.md): short summary; catalog or CLI work when requested.
 
-If any exclusion appears or the scope grows, stop the Quick Fix Path and route the remaining work through the Full Development Flow.
+## Authorization and recovery
 
-## Product Principles
+For workflow permission, read [authorization rules](references/authorization.md). Recognize affirmative answers in context without requiring special wording. Branch selection, spec implementation and merge-back have different scopes. Apifox writes need their own exact plan and approval.
 
-- One obvious entry: users normally trigger only `ai-dev-protocol`.
-- One routing owner: phase files are internal modules, not competing public entry points.
-- Keep phase modules small; do not turn the plugin into a large general-purpose agent framework.
-- Make gates visible: branch source, spec confirmation, implementation start, commit, merge-back, and handoff.
-- Recover from current state by inspecting branch, Git status, existing spec, local plan, and commits.
-- Keep temporary AI execution state out of business commits.
-- Prioritize developer takeover over automation.
+When resuming or discovering changed Git/spec state, read [recovery rules](references/recovery.md). Infer state from Git, the spec, existing local plan and conversation evidence. Ask only for missing decisions instead of restarting all stages.
 
-## Conversation Entry
+## Shared conventions
 
-Treat natural design discussion as the start of the workflow when it is likely to become code work.
-Examples include "design this module", "our current idea is", "next step", "start implementation", or "build it this way".
-
-Do not treat requirement clarification, branch confirmation, or AI branch creation as permission to implement.
-After those steps, continue to the next gate in the flow.
-
-## Branch Workflow
-
-- Developer branch: create `ai/{yyyyMMdd}-{developer}-{short-desc}`, commit a requirement spec under `docs/specs/`, create the corresponding ignored local plan under `docs/plans/`, implement, verify, report readiness, and wait for explicit merge-back approval.
-- Existing `ai/...`: continue work; identify source developer branch.
-- Trunk/environment branch: stop unless the user explicitly says this branch is their developer aggregation branch.
-- Ambiguous branch: ask before editing.
-
-## Full-Flow Gates
-
-These gates apply to the Full Development Flow, not the Quick Fix Path.
-
-Before implementation:
-
-- One requirement only.
-- Scope, non-goals, affected areas, and verification are clear.
-- Developer branch or existing AI branch is known.
-- Chinese spec is confirmed.
-- The user has confirmed the Chinese spec in the current workflow after branch mode is known.
-- The AI branch has a committed `docs/specs/{yyyyMMdd}-{short-desc}.md` requirement spec.
-- The AI branch has an ignored local plan at `docs/plans/{yyyyMMdd}-{short-desc}-plan.md`, using the corresponding spec basename; the plan must not be tracked by Git.
-- If the user only confirmed the developer branch, that confirms branch source only; next step is `ai-spec-writing`, not implementation.
-
-Before full-flow delivery:
-
-- Spec document path, spec commit status, local plan execution status, implementation commit status, and merge-back status are recorded.
-- Verification ran, or blocker is stated.
-- Implementation plan/goals were tracked, or a reason for a lightweight path is stated.
-- Subagent or independent review ran when the task was complex or involved code changes and the environment supported it; otherwise the fallback self-review is stated.
-- Commits use Chinese `feat:` / `fix:` when created.
-- Merge-back status is recorded.
-- Developer takeover is stated.
-- API changes include an Apifox sync summary and Apifox-ready catalogs when requested. CLI synchronization is optional and requires its own external-write authorization.
-
-Before merge-back:
-
-- Report the completed implementation, verification, risks, AI branch, target developer branch, and proposed squash commit message.
-- Ask the developer whether this specific AI branch may be merged back.
-- Treat this as a new authorization gate. Spec confirmation and implementation approval do not carry forward to merge-back.
-- Without an explicit affirmative answer, remain on the AI branch and leave the developer branch untouched.
-
-## Recovery Mode
-
-Do not assume the workflow starts from zero. Before deciding the next phase, infer current state:
-
-- Current branch: developer branch, `ai/...`, trunk/environment branch, or ambiguous branch.
-- Git status: clean, unstaged work, staged work, committed implementation, or local branch ahead.
-- Spec status: missing, present but unconfirmed, confirmed, or stale.
-- Local plan status: missing, present and ignored under `docs/plans/`, or incorrectly tracked / misplaced.
-- API sync status: no API change, summary needed, catalog requested/completed, CLI plan needed/validated, CLI write awaiting authorization, CLI write completed/verified, or CLI sync blocked.
-- Path status: Discussion Only, Apifox Standalone, Quick Fix Path, or Full Development Flow.
-
-## Global Rules
-
-- Specs, handoff, Apifox summaries, and AI commit messages use Chinese.
-- Code identifiers, API paths, table names, config keys, commands, and file paths stay English.
-- No unrelated refactor, formatting sweep, dependency upgrade, tracked plan file, `.superpowers/`, or external workflow artifact unless explicitly requested.
-- Implementation may borrow selected Superpowers-style methods: context hygiene, goal decomposition, step-by-step progress, scope guard, and independent review. Create an ignored local plan file for execution; do not create `.superpowers/` files or hidden workflow artifacts.
-- Never merge, squash merge, cherry-pick, or commit implementation onto the developer branch without explicit developer approval for that specific merge-back.
-- Never treat read-only analysis, a repository workflow approval, or a prior Apifox request as permission for a later external write. Immediately before an Apifox CLI mutation, restate the exact target and operation plan and obtain explicit approval.
-- Developer owns final review, self-test, integration testing, PR, merge, and code quality.
+- User instructions and repository/host constraints take precedence over plugin defaults.
+- One approved requirement per AI work unit. Specs, handoff, API explanations and commits use Chinese; identifiers retain their spelling.
+- Specs live in docs/specs/{yyyyMMdd}-{short-desc}.md; full-flow local plans live in ignored docs/plans/{yyyyMMdd}-{short-desc}-plan.md.
+- Keep edits within approved scope; avoid unrelated refactoring, dependency changes, tracked temporary plans or hidden task systems.
+- Keep one public skill. Developer review, self-test, integration and downstream release remain explicit handoff responsibilities.

@@ -210,12 +210,13 @@ Expected: AI should write a Chinese spec before editing, then update implementat
 
 Expected: AI should treat this as a protocol iteration, create an `ai/...` branch from the developer branch, add and commit a `docs/specs/*.md` spec, wait for confirmation, create the corresponding ignored local plan under `docs/plans/`, ensure it is untracked, then update developer-branch workflow rules through implementation, review, and commit. It should report merge readiness, request explicit developer authorization, and squash merge back only after approval before final handoff.
 
-## Backlog
+## Maintainer validation
 
-- Add deterministic Codex and Claude manifest/skill validation commands and run them in CI.
-- Build a scenario/eval matrix covering Router classification, Quick Fix exclusions, spec gates, merge-back authorization, Apifox JSON Schema completeness, and CLI write safety branches.
-- Add clean-install smoke tests for fresh Codex and Claude Code sessions, including checks that only the Router is discovered/user-facing.
-- Track prompt size and skill loading behavior so internal phase details remain discoverable without bloating the Router.
+In the source checkout, run `python scripts/validate_plugin.py` and `python -m unittest discover -s tests -v`; CI runs both on Windows and Linux. `python scripts/evaluate.py list` lists 16 workflow cases. Export each prompt without its rubric, collect an independent result, then score a recorded run. Simulated decisions and actual tool execution must be reported separately; missing cases are unverified.
+
+Use `python scripts/build_bundle.py --output dist/project-bundle` to verify a complete manual installation. Native discovery should also be checked with an isolated plugin configuration and a fresh conversation where the relevant host is available. A manifest validator does not prove host discovery or model behavior. Do not mark unavailable Claude Code or Cursor runtime checks as passed.
+
+Continue tracking instruction size and loading behavior, and add real host execution evidence when the required runtimes are available.
 
 ## Release Notes Style
 

@@ -10,12 +10,12 @@
       "displayName": "AI Dev Protocol",
       "description": "Lightweight team workflow plugin for AI-assisted development and gated Apifox API/catalog/CLI synchronization.",
       "source": "./plugins/ai-dev-protocol",
-      "version": "2.1.0",
+      "version": "2.2.1",
       "author": {
         "name": "Langji"
       },
       "homepage": "https://github.com/langji3/ai-dev-protocol",
-      "repository": "https://github.com/langji3/ai-dev-protocol.git",
+      "repository": "https://github.com/langji3/ai-dev-protocol",
       "category": "Coding",
       "keywords": [
         "ai-development",

@@ -8,6 +8,7 @@ Apply project rules first. Otherwise classify current branch:
 
 - Developer branch: `developer/<name>`, `dev/<name>`, `<name>/dev`, `<name>/develop`, `personal/<name>`, `users/<name>`, or another branch explicitly documented by the repository as a developer aggregation branch.
 - Existing AI branch: `ai/*`.
+- A repository/host-mandated AI prefix (for example `codex/*`) is equivalent only when its task and source branch are recorded; do not classify arbitrary feature branches by resemblance.
 - Trunk/environment candidate: `main`, `master`, `dev`, `develop`, `site`, `staging`, `test`, `prod`, `production`. Treat it as blocked until the user explicitly confirms that this exact branch is their developer aggregation branch; after confirmation, classify it as the developer branch for this workflow.
 - Ambiguous: short names such as `wzh`, `dev-wzh`, `login`, `order`.
 - Any other branch, including names like `feature/*`, `fix/*`, `hotfix/*`, or ticket branches, is ambiguous in the current small-team workflow. Ask whether it should be treated as the developer aggregation branch; do not work directly on it by default.
@@ -15,6 +16,7 @@ Apply project rules first. Otherwise classify current branch:
 ## Do
 
 - Developer branch: create `ai/{yyyyMMdd}-{developer}-{short-desc}` from it.
+- Before creation, read [recovery and concurrency rules](../../references/recovery.md), inspect branches/worktrees, use an isolated directory for simultaneous work, and record the source commit. Follow an explicit repository/host naming convention when it differs.
 - Existing `ai/...`: continue work; identify source developer branch.
 - Blocked trunk/environment branch: stop unless the user confirms it is their developer aggregation branch.
 - Ambiguous branch: ask whether it should be treated as the developer aggregation branch.

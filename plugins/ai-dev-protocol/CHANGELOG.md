@@ -8,6 +8,31 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [2.2.1] - 2026-09-07
+
+### Fixed
+
+- Accepted legitimate Windows 8.3 path aliases in package validation and bundle generation while still rejecting symbolic links, junctions, and linked ancestors.
+- Added real Windows short-path and junction regression fixtures for the CI path checks.
+
+## [2.2.0] - 2026-09-07
+
+### Added
+
+- Added offline package validation, complete project installation bundles, CI checks, and 16 recorded workflow evaluation scenarios.
+- Added recovery evidence for interrupted work, changed specs, and developer branches that advance before integration.
+- Added per-operation Apifox synchronization records and read-back recovery after partial success or uncertain timeouts.
+
+### Changed
+
+- Reused authorization for an unchanged, concrete proposal; contextual confirmation no longer requires special approval words.
+- Split Apifox summaries, catalogs, and CLI synchronization into resources loaded for the selected mode.
+- Updated all adapters to use the complete local resource tree and one public Router.
+
+### Migration Notes
+
+- Native plugin users should update the plugin and start a fresh conversation. Manual installations should replace the complete vendor directory and update the marked entry snippet using the installation guide.
+
 ## [2.1.0] - 2026-08-26
 
 ### Added

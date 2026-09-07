@@ -8,6 +8,7 @@ Use after requirement intake and developer-branch selection, before implementati
 - Preserve English for code identifiers, API paths, table names, config keys, commands, and file paths.
 - Use the [requirement spec template](templates/requirement-spec.md) when structure helps.
 - Wait for user confirmation before implementation.
+- Apply [authorization rules](../../references/authorization.md): retain confirmation of an unchanged concrete proposal and bind it to reviewed spec content. Record evidence in the existing local plan; do not ask again solely because approved text moved from chat to a file.
 - Write the spec after the developer branch source is known, including after the user confirms an ambiguous branch as the developer aggregation branch.
 - Treat developer-branch confirmation as input to the spec, not as spec confirmation.
 - Create a Markdown spec under `docs/specs/{yyyyMMdd}-{short-desc}.md` on the `ai/...` branch and commit it before implementation.
