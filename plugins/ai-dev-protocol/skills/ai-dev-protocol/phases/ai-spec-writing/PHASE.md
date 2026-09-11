@@ -31,8 +31,8 @@ Use after requirement intake and developer-branch selection, before implementati
 
 ## Stop
 
-If the user changes scope, update the spec or reconfirm before editing.
-If no Chinese spec has been confirmed in the current workflow, do not call implementation complete and do not edit files.
+If scope changes, update the spec and apply the authorization rules before affected implementation. A concrete delta already confirmed by the user needs no second confirmation; verify the saved content matches it.
+If no Chinese spec has been confirmed in the current workflow, do not call implementation complete or edit implementation files; preparing and committing the requested spec is allowed.
 If the spec has not been committed under `docs/specs/`, do not start implementation.
 
 Next: [AI Implementation Scope](../ai-implementation-scope/PHASE.md).

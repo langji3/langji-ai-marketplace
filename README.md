@@ -4,13 +4,13 @@
 
 | 插件 | 版本 | 接入方式 |
 | --- | --- | --- |
-| AI Dev Protocol | 2.2.1 | Codex / Claude Code 原生 plugin，Cursor / 通用工具完整项目包 |
+| AI Dev Protocol | 2.2.2 | Codex / Claude Code 原生 plugin，Cursor / 通用工具完整项目包 |
 
 安装指南：[Codex](docs/install-codex.md)、[Claude Code](docs/install-claude-code.md)、[Cursor](docs/install-cursor.md)。手动接入必须包含完整 vendor 资源；复制单个 adapter 只获得摘要。
 
 本次实施结果、验证证据与未覆盖环境见 [2.2.0 验证记录](docs/validation/20260907-release-report.md)。
 
-Windows CI 路径兼容性修复与最新验证结果见 [2.2.1 修复记录](docs/validation/20260907-windows-ci-fix.md)。
+Windows CI 路径兼容性修复见 [2.2.1 修复记录](docs/validation/20260907-windows-ci-fix.md)。跨对话与并行需求兼容性修正及本次验证见 [2.2.2 发布记录](docs/validation/20260911-conversation-compatibility.md)。
 
 ## 维护与校验
 

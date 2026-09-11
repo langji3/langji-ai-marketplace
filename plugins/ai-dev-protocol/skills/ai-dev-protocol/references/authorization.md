@@ -9,6 +9,7 @@ Use current and prior explicit approvals in this task. Higher-priority host inst
 - 继续 suffices only when the established next action is unambiguous and within that scope. Ask one focused question when it could refer to different actions.
 - Do not ask again for an unchanged approved action. A different target, material scope change, destructive operation or withdrawn approval requires a new decision.
 - Implementation completion does not authorize merge-back; repository approval does not authorize Apifox writes.
+- Confirmation can carry across conversations when its original proposal, user response/provenance and reviewed spec version can be verified. Reuse that evidence; a handoff's bare `approved` flag does not create approval, and a new conversation alone does not invalidate it.
 
 ## Spec confirmation
 

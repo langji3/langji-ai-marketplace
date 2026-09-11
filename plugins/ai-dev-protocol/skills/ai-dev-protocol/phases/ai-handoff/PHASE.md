@@ -23,7 +23,9 @@ Use for final delivery.
 
 Use the [handoff summary template](templates/handoff-summary.md) when structure helps.
 
-When merge-back has not been explicitly approved, deliver from the AI branch, state that the developer branch is untouched, and ask the dedicated merge-back authorization question. Do not describe pending approval as a blocker or infer approval from spec confirmation.
+When merge-back has not been explicitly approved, deliver from the AI branch and state that the developer branch is untouched. For a delivery/report-only request, report merge status only; do not ask for integration decisions. Enter merge-back when requested or already due under the user's arrangement, using a verified target and dedicated approval. Do not describe pending approval as a blocker or infer approval from spec confirmation.
+
+When the user requested a report to another conversation, send this same handoff using the supplied, verified destination and available authorized tools. Unknown recipients or merge targets stay unknown; do not guess IDs or reuse another requirement's destination. If the destination or delivery capability is unavailable, provide a transferable summary and explicitly state it was not sent to the requested conversation. A reply in the current task does not deliver it to another conversation or prove user notification. This skill does not start monitoring or define a dispatch workflow.
 
 ## Verification Blocker
 

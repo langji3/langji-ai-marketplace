@@ -184,3 +184,11 @@ When implementation is ready, the dedicated question should name both branches:
 Spec confirmation, implementation approval, or a vague earlier `ok` must not be reused as merge-back authorization.
 
 A contextual “OK” or “确认” directly answering the concrete merge proposal is sufficient; do not ask for special words. Name the verified source and target commits, recheck both heads and worktree state immediately before integration, and reverify the combined tree if the target advances. A changed spec requires confirmation only for material scope changes, not for copying an approved proposal into a file.
+
+## 11. Continue Under Existing Collaboration Arrangements
+
+The user has already arranged requirement discussion in one conversation and implementation in another worktree. The implementation conversation loads this plugin with an existing branch, committed spec and approval provenance.
+
+Expected: preserve its assignment, verify Git/spec/approval and resume the first incomplete stage. Do not create another task or repeat completed branch/spec steps. A read-only scout remains read-only even on an AI branch. A conversation can discuss B while A waits for a decision; only dependent work pauses.
+
+When the user explicitly confirms a concrete spec delta, reuse that confirmation and verify the saved change instead of asking again. If the user requested a report to another conversation, use the existing handoff and verified destination through available authorized tools. Missing destination/capability requires a transferable summary with an honest delivery status, not an invented ID or notification claim. Coordination itself remains the user's conversational arrangement.

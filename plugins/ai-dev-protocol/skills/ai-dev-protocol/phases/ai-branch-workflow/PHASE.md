@@ -17,13 +17,13 @@ Apply project rules first. Otherwise classify current branch:
 
 - Developer branch: create `ai/{yyyyMMdd}-{developer}-{short-desc}` from it.
 - Before creation, read [recovery and concurrency rules](../../references/recovery.md), inspect branches/worktrees, use an isolated directory for simultaneous work, and record the source commit. Follow an explicit repository/host naming convention when it differs.
-- Existing `ai/...`: continue work; identify source developer branch.
+- Existing `ai/...`: continue the same requirement and identify its source developer branch. A separate requirement uses its own branch from the established source, not the current feature branch.
 - Blocked trunk/environment branch: stop unless the user confirms it is their developer aggregation branch.
 - Ambiguous branch: ask whether it should be treated as the developer aggregation branch.
 - Other branch names: ask before proceeding; if confirmed, treat the current branch as the developer aggregation branch and create an `ai/...` branch from it.
 - User confirmation of the developer branch only resolves branch source. It is not approval to implement.
 - After branch source is resolved, always continue to [AI Spec Writing](../ai-spec-writing/PHASE.md) unless a confirmed repository spec already exists for the same requirement in the current workflow.
-- After creating or switching to the `ai/...` branch, stop at [AI Spec Writing](../ai-spec-writing/PHASE.md) and wait for spec confirmation before editing files.
+- After creating or switching to the `ai/...` branch, write and commit its spec, then wait only for missing content confirmation before editing implementation files. A new conversation does not require a new branch for work already prepared there.
 
 ## Naming
 

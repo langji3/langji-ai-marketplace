@@ -212,7 +212,7 @@ Expected: AI should treat this as a protocol iteration, create an `ai/...` branc
 
 ## Maintainer validation
 
-In the source checkout, run `python scripts/validate_plugin.py` and `python -m unittest discover -s tests -v`; CI runs both on Windows and Linux. `python scripts/evaluate.py list` lists 16 workflow cases. Export each prompt without its rubric, collect an independent result, then score a recorded run. Simulated decisions and actual tool execution must be reported separately; missing cases are unverified.
+In the source checkout, run `python scripts/validate_plugin.py` and `python -m unittest discover -s tests -v`; CI runs both on Windows and Linux. `python scripts/evaluate.py list` lists 20 workflow cases. Export each prompt without its rubric, collect an independent result, then score a recorded run. Simulated decisions and actual tool execution must be reported separately; missing cases are unverified.
 
 Use `python scripts/build_bundle.py --output dist/project-bundle` to verify a complete manual installation. Native discovery should also be checked with an isolated plugin configuration and a fresh conversation where the relevant host is available. A manifest validator does not prove host discovery or model behavior. Do not mark unavailable Claude Code or Cursor runtime checks as passed.
 

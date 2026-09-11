@@ -1,6 +1,6 @@
 {
   "name": "ai-dev-protocol",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Lightweight team workflow plugin for AI-assisted development and gated Apifox API/catalog/CLI synchronization.",
   "author": {
     "name": "Langji"

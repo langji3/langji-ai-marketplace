@@ -8,7 +8,7 @@ Also use it when a natural design discussion is likely to become code work, even
 - Confirm the problem, expected result, scope, non-goals, affected areas, and verification.
 - Keep discussion in Chinese unless the user asks otherwise.
 - Keep code identifiers, API paths, table names, config keys, commands, and file paths in English.
-- Split bundled work; handle only one independent requirement per AI work unit.
+- Split bundled work; keep one independent requirement per implementation unit while allowing the conversation to advance other requirements.
 - When the user adds missing business rules, summarize the clarified requirement before moving to branch workflow.
 - If the user asks "next step" after requirement discussion, close intake first, then move to [AI Branch Workflow](../ai-branch-workflow/PHASE.md); do not jump to implementation.
 
@@ -17,9 +17,11 @@ Also use it when a natural design discussion is likely to become code work, even
 Ask before continuing when:
 
 - The request is only a direction.
-- Multiple independent requirements are mixed.
+- Requirements cannot yet be separated or their dependencies are unclear.
 - Acceptance criteria or affected modules are unclear.
 - A business, compatibility, permission, or data-risk decision is missing.
+
+These missing decisions pause only affected work; continue unrelated discussion or authorized work. Respect an existing read-only assignment and the Router's discussion boundary.
 
 ## Gate
 

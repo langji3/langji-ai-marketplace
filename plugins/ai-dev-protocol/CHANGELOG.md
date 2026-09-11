@@ -8,6 +8,14 @@ All notable changes to AI Dev Protocol are documented here.
 - `MINOR`：新增 workflow skill、模板或重要规则，但保持已有使用方式兼容。
 - `PATCH`：文案修正、说明补充、模板微调或维护性更新。
 
+## [2.2.2] - 2026-09-10
+
+### Fixed
+
+- Preserved assigned responsibilities and existing branch/spec/approval evidence when work continues across conversations, without restarting or redispatching it.
+- Limited missing-decision waits to affected work and reused already-confirmed scope changes.
+- Clarified requested cross-conversation handoff and delivery limits while retaining the existing eight phases and templates.
+
 ## [2.2.1] - 2026-09-07
 
 ### Fixed

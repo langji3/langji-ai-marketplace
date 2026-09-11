@@ -19,6 +19,8 @@ Inspect current branch, git status --short, git worktree list --porcelain, spec 
 
 A missing plan can be reconstructed from Git/spec and available conversation. Missing approval uses [authorization rules](authorization.md). Materially changed spec scope needs delta confirmation before further implementation.
 
+For a conversation handoff, preserve the assigned responsibility and verify the actual repository/worktree, branch, spec version and applicable confirmation before continuing. Reuse completed stages; do not infer a new role from the branch name or create another task just because the plugin loaded. Existing plan evidence can retain the handoff/return address when supplied; no new state file is needed.
+
 ## Concurrent work
 
 Simultaneous implementations need separate worktrees/directories and unique branches. A branch name does not isolate a shared checkout. Never switch branches under another running task.

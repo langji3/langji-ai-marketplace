@@ -7,6 +7,10 @@ description: Guide team coding work through requirement clarification, safe bran
 
 One public Router for a small-team workflow. Internal PHASE.md files are bundled resources, not discoverable skills. Follow the selected phase link and read it completely before acting. Load only resources needed now.
 
+Respect the conversation's existing assignment and the user's collaboration arrangements. Loading this skill does not assign a coordinating role or start another task; a read-only scout/review stays read-only. A branch name alone does not determine the conversation's responsibility.
+
+One requirement applies to an implementation work unit/branch, not the whole conversation. Several requirements may be discussed or advanced independently; a missing decision pauses only dependent work. When continuing work from another conversation, use [recovery](references/recovery.md) to reuse the existing branch, spec and applicable approval instead of restarting completed stages.
+
 ## Choose a route
 
 | Request | Route |
@@ -16,7 +20,7 @@ One public Router for a small-team workflow. Internal PHASE.md files are bundled
 | User requests or accepts a narrow, understood, low-risk edit satisfying every condition below | Quick Fix Path. |
 | Feature, nontrivial/risky change or uncertain development classification | Full Development Flow. |
 
-A discussion that may later become code stays read-only until implementation is requested. API code changes use Full Development Flow before optional external synchronization.
+A discussion stays read-only until the user requests an artifact or implementation. An explicit request to commit a spec enters the branch/spec stages only. API code changes use Full Development Flow before optional external synchronization.
 
 ## Quick Fix Path
 
