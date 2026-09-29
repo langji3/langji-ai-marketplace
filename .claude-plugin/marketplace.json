@@ -25,6 +25,22 @@
         "codex",
         "team-protocol"
       ]
+    },
+    {
+      "name": "code-simplifier",
+      "displayName": "Code Simplifier",
+      "description": "Review and simplify implementation code for readability while preserving behavior.",
+      "source": "./plugins/code-simplifier",
+      "version": "0.1.0",
+      "author": {
+        "name": "Langji"
+      },
+      "category": "Coding",
+      "keywords": [
+        "code-review",
+        "readability",
+        "simplification"
+      ]
     }
   ]
 }

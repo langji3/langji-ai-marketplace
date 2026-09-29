@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "plugin": "code-simplifier",
+  "version": "0.1.0",
+  "sourceProject": "code-simplifier",
+  "sourceCommit": "fc800c85a92fbdba5acc34d68f55d486fc789eac",
+  "hashAlgorithm": "sha256-text-lf-utf8-v1",
+  "files": {
+    ".claude-plugin/plugin.json": "31d3a46e89937aaac68b01c5ca9d67fee9a19a3bff89451d1572e75338c5633f",
+    ".codex-plugin/plugin.json": "e0e8e3fa5a6d3226d4bb2406b8215cf3dda547e58923c89be26fd28d7386a688",
+    "LICENSE": "96e78a9ce85795b117c8929887bdb78f88bf23f7b85a31f0872cde4dff7e92cd",
+    "NOTICE.md": "2f16cee05f82ec24e22cb6315b38bdc466742b958afdc970e62329f30e77ab45",
+    "README.md": "98c6e9a53c2bce67383e3b0621b54db6525d4a2d333e635289687ba698f174d0",
+    "scripts/validate.py": "167c3c461a7da1e59ddb470ca578a24944376f3f13c512b1936817684d7da848",
+    "skills/code-simplifier/SKILL.md": "5ba4b34b5c180dbe01dbdd8f4e4075e4e04fdadcaffe96115a17cc2d9c91e675",
+    "tests/scenarios.md": "9dc1d8f9804fa344a1b38a1c1a975d4d675c933bf4f670e89338ce161d6252e9"
+  }
+}

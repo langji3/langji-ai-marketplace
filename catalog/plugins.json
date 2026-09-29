@@ -17,6 +17,18 @@
         "claude-code",
         "cursor"
       ]
+    },
+    {
+      "name": "code-simplifier",
+      "displayName": "Code Simplifier",
+      "description": "Review and simplify implementation code for readability while preserving behavior.",
+      "sourceProject": "code-simplifier",
+      "version": "0.1.0",
+      "category": "Coding",
+      "tools": [
+        "codex",
+        "claude-code"
+      ]
     }
   ]
 }
