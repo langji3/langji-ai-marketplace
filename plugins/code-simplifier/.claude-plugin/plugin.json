@@ -5,6 +5,8 @@
   "author": {
     "name": "Langji"
   },
+  "homepage": "https://github.com/langji3/code-simplifier",
+  "repository": "https://github.com/langji3/code-simplifier",
   "license": "Apache-2.0",
   "keywords": [
     "code-review",

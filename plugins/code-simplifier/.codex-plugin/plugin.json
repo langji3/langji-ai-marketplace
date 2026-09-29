@@ -5,6 +5,8 @@
   "author": {
     "name": "Langji"
   },
+  "homepage": "https://github.com/langji3/code-simplifier",
+  "repository": "https://github.com/langji3/code-simplifier",
   "license": "Apache-2.0",
   "keywords": [
     "code-review",
@@ -18,6 +20,7 @@
     "longDescription": "Review implementation code for speculative branches, redundant abstractions, and hard-to-follow business flow. During authorized edits, simplify only the task's scope while keeping contracts, permissions, transactions, and side effects intact.",
     "developerName": "Langji",
     "category": "Coding",
+    "websiteURL": "https://github.com/langji3/code-simplifier",
     "capabilities": [
       "Read",
       "Write"

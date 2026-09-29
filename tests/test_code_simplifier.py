@@ -37,6 +37,16 @@ class CodeSimplifierReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Claude entry differs"):
                 validate(root)
 
+    def test_wrong_source_repository_does_not_pass(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = self._copy_release(Path(temp))
+            path = root / "catalog/plugins.json"
+            index = json.loads(path.read_text(encoding="utf-8"))
+            next(item for item in index["plugins"] if item["name"] == "code-simplifier")["sourceRepository"] = "https://example.com/other"
+            path.write_text(json.dumps(index), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "Marketplace source repository differs"):
+                validate(root)
+
     @staticmethod
     def _copy_release(root: Path) -> Path:
         shutil.copytree(ROOT / "plugins/code-simplifier", root / "plugins/code-simplifier")

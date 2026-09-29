@@ -9,4 +9,4 @@
 
 安装方式：[Codex](docs/install-codex.md) · [Claude Code](docs/install-claude-code.md) · [Cursor](docs/install-cursor.md)。两个插件可单独安装，也可配合使用：开发流程由 AI Dev Protocol 管理，Code Simplifier 只关注代码本身。
 
-想修改或 fork，可从各插件目录查看技能、许可和来源说明。AI Dev Protocol 的[源码仓库](https://github.com/langji3/ai-dev-protocol)已公开；Code Simplifier 目前随本仓库提供完整插件快照，其独立源码项目尚未配置远端。
+想修改或 fork，可从各插件目录查看技能、许可和来源说明。源码项目：[AI Dev Protocol](https://github.com/langji3/ai-dev-protocol) · [Code Simplifier](https://github.com/langji3/code-simplifier)。

@@ -48,6 +48,9 @@ def validate(root: Path, source: Path | None = None) -> dict:
         raise ValueError("Expected a full source commit")
     if record.get("hashAlgorithm") != "sha256-text-lf-utf8-v1":
         raise ValueError("Unknown hash algorithm")
+    repository = record.get("sourceRepository")
+    if repository != "https://github.com/langji3/code-simplifier":
+        raise ValueError("Unexpected source repository")
     actual_paths = set()
     for path in plugin.rglob("*"):
         if path.is_symlink():
@@ -69,6 +72,9 @@ def validate(root: Path, source: Path | None = None) -> dict:
     version = json.loads(report.stdout)["version"]
     if record.get("version") != version:
         raise ValueError("Recorded version differs from snapshot")
+    for rel in (".codex-plugin/plugin.json", ".claude-plugin/plugin.json"):
+        if read_json(plugin / rel).get("repository") != repository:
+            raise ValueError(f"Plugin source repository differs: {rel}")
     codex = one_entry(root / ".agents/plugins/marketplace.json")
     if codex.get("source") != {"source": "local", "path": f"./plugins/{NAME}"}:
         raise ValueError("Codex source path differs")
@@ -80,9 +86,17 @@ def validate(root: Path, source: Path | None = None) -> dict:
         raise ValueError("Claude entry differs from snapshot")
     if catalog.get("version") != version or catalog.get("sourceProject") != NAME:
         raise ValueError("Catalog entry differs from source")
+    if claude.get("repository") != repository or catalog.get("sourceRepository") != repository:
+        raise ValueError("Marketplace source repository differs")
 
     if source is not None:
         source = source.resolve()
+        origin = subprocess.run(
+            ["git", "-C", str(source), "remote", "get-url", "origin"],
+            capture_output=True, text=True, encoding="utf-8", check=True,
+        ).stdout.strip()
+        if origin.removesuffix(".git").rstrip("/") != repository:
+            raise ValueError("Actual source origin differs from provenance")
         for rel in FILES:
             blob = subprocess.run(
                 ["git", "-C", str(source), "show", f"{commit}:{rel}"],
