@@ -1,44 +1,12 @@
 # Langji AI Marketplace
 
-团队 AI 开发插件分发仓库。插件规则在各自的源码项目中维护；这里保存经过检查、可追溯到 Git 提交的分发快照。AI Dev Protocol 的源仓库是 [ai-dev-protocol](https://github.com/langji3/ai-dev-protocol)，Code Simplifier 的本地源项目为与它并列的 `code-simplifier`（尚未配置远端）。
+按需安装的 AI 插件集合。
 
-| 插件 | 版本 | 接入方式 |
+| 插件 | 用途 | 支持 |
 | --- | --- | --- |
-| AI Dev Protocol | 2.2.2 | Codex / Claude Code 原生 plugin，Cursor / 通用工具完整项目包 |
-| Code Simplifier | 0.1.0 | Codex / Claude Code 原生 plugin，单个公开 skill |
+| [AI Dev Protocol](plugins/ai-dev-protocol/README.md) 2.2.2 | 团队开发流程 | Codex、Claude Code；另有 Cursor / 通用项目包 |
+| [Code Simplifier](plugins/code-simplifier/README.md) 0.1.0 | 代码审查与保持行为的简化 | Codex、Claude Code |
 
-安装指南：[Codex](docs/install-codex.md)、[Claude Code](docs/install-claude-code.md)、[Cursor](docs/install-cursor.md)。手动接入必须包含完整 vendor 资源；复制单个 adapter 只获得摘要。
+安装方式：[Codex](docs/install-codex.md) · [Claude Code](docs/install-claude-code.md) · [Cursor](docs/install-cursor.md)。两个插件可单独安装，也可配合使用：开发流程由 AI Dev Protocol 管理，Code Simplifier 只关注代码本身。
 
-本次实施结果、验证证据与未覆盖环境见 [2.2.0 验证记录](docs/validation/20260907-release-report.md)。
-
-Windows CI 路径兼容性修复见 [2.2.1 修复记录](docs/validation/20260907-windows-ci-fix.md)。跨对话与并行需求兼容性修正及本次验证见 [2.2.2 发布记录](docs/validation/20260911-conversation-compatibility.md)。
-
-## 维护与校验
-
-需要 Python 3.11+ 和 Git。下列命令只维护 AI Dev Protocol；其源仓库先验证、更新版本并提交，再在本仓库根目录同步：
-
-~~~shell
-python scripts/sync_plugin.py --source-path ../ai-dev-protocol --source-ref HEAD --expected-commit <完整提交SHA> --dry-run
-python scripts/sync_plugin.py --source-path ../ai-dev-protocol --source-ref HEAD --expected-commit <完整提交SHA>
-python scripts/validate_marketplace.py
-python -m unittest discover -s tests -v
-~~~
-
-PowerShell 5.1 / 7 入口仍为 scripts/sync-ai-dev-protocol.ps1，支持 -SourcePath、-SourceRef、-ExpectedCommit、-DryRun 和 -Recover。默认远端模式读取源仓库 main，在 tmp/source-cache/ai-dev-protocol.git 使用 bare cache，不重置工作目录。详见 [更新与恢复策略](docs/update-policy.md)。
-
-同步会先导出并校验临时快照，再更新插件、catalog 和 Claude 索引，生成 [来源记录](catalog/releases/ai-dev-protocol.json)。相同版本下语义内容变化会被拒绝。每次发布仍需审查并按授权提交、合回和推送。
-
-Code Simplifier 的独立来源、快照核对与后续升级步骤见 [维护说明](docs/code-simplifier-release.md)。现有 AI Dev Protocol 同步脚本不维护它。
-
-## 文件职责
-
-- plugins/ai-dev-protocol/：源仓库允许发布文件的快照。
-- plugins/code-simplifier/：独立源码项目的已验证快照。
-- .agents/plugins/marketplace.json：Codex 安装入口和策略。
-- .claude-plugin/marketplace.json：Claude Code 安装入口和版本。
-- catalog/plugins.json、catalog/releases/：插件目录、源提交和规范化文件摘要。
-- scripts/、tests/、.github/workflows/：分发维护工具、离线恢复测试和 Windows/Linux CI。
-
-多文件发布使用恢复日志，不能承诺突然中断时所有读者都看不到中间状态。未完成事务会阻断新同步和校验；恢复时保护中断后的人工修改。
-
-新增插件需独立定义发布约束，当前 `sync_plugin.py` 只维护 ai-dev-protocol；见 [新增插件指南](docs/add-plugin-guide.md)。
+想修改或 fork，可从各插件目录查看技能、许可和来源说明。AI Dev Protocol 的[源码仓库](https://github.com/langji3/ai-dev-protocol)已公开；Code Simplifier 目前随本仓库提供完整插件快照，其独立源码项目尚未配置远端。

@@ -1,6 +1,6 @@
 # 发布与恢复策略
 
-源仓库负责规则、模板、adapter 和版本；marketplace 只分发提交快照。禁止直接在 plugins/ai-dev-protocol/ 改规则后把它当作正式源版本。本页以下同步与恢复机制专用于 AI Dev Protocol；Code Simplifier 的独立维护约束见 [其更新说明](code-simplifier-release.md)。
+源仓库负责规则、模板、adapter 和版本；marketplace 只分发提交快照。禁止直接在 plugins/ai-dev-protocol/ 改规则后把它当作正式源版本。本页以下同步与恢复机制专用于 AI Dev Protocol。
 
 ## 发布内容与身份
 

@@ -6,5 +6,5 @@
 
 手动 skill 与完整项目包替代方式、检查和卸载见 [源插件安装指南](../plugins/ai-dev-protocol/adapters/codex/install.md)。避免同一项目重复启用原生 plugin 与另一份同名 skill。
 
-维护者可运行 python scripts/smoke_codex.py --codex <codex可执行文件>，在临时 CODEX_HOME 中验证 AI Dev Protocol 的本地安装和缓存中的唯一 Router。该烟测不覆盖 Code Simplifier，也不调用模型；不会改个人插件配置。Code Simplifier 的快照核对见[维护说明](code-simplifier-release.md)。
+维护者可运行 python scripts/smoke_codex.py --codex <codex可执行文件>，在临时 CODEX_HOME 中验证 AI Dev Protocol 的本地安装和缓存中的唯一 Router。该烟测不覆盖 Code Simplifier，也不调用模型；不会改个人插件配置。
 
